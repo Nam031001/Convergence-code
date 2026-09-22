@@ -29,7 +29,7 @@
 
 .option-group__label {
   margin: 0 0 24px;
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -76,7 +76,7 @@
 }
 
 .option-card__label {
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
   color: #1a1a1a;
   text-align: center;
@@ -113,7 +113,7 @@
   padding: clamp(14px, 1.6vw, 22px);
   border-radius: clamp(8px, 0.8vw, 12px);
   /* font-size: clamp(18px, 2vw, 28px); */
-  font-size: 64px;
+  font-size: 34px;
   font-weight: 400;
 }
 
@@ -149,7 +149,7 @@
   background: #2D2D2D;
   color: var(--color-white);
   /* font-size: clamp(18px, 2vw, 28px); */
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 400;
   text-align: center;
 }
@@ -189,7 +189,7 @@ body.solo-screen {
 }
 
 .review-header__title {
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 800;
   color: #1a1a1a;
   line-height: 1.3;
@@ -197,7 +197,7 @@ body.solo-screen {
 
 .review-header__price {
   margin-top: clamp(4px, 0.6vw, 10px);
-  font-size: 64px;
+  font-size: 34px;
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -234,14 +234,14 @@ body.solo-screen {
 }
 
 .review-line__name {
-  font-size: 64px;
+  font-size: 34px;
   font-weight: 800;
   color: #1a1a1a;
 }
 
 .review-line__kcal {
   margin: 2px 0 clamp(10px, 1.2vw, 16px);
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
   color: #1a1a1a;
 }
@@ -254,7 +254,7 @@ body.solo-screen {
   border-radius: clamp(6px, 0.6vw, 10px);
   background: var(--color-dark);
   color: var(--color-white);
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
 }
 
@@ -275,7 +275,7 @@ body.solo-screen {
   flex: 0 0 clamp(48px, 6vw, 84px);
   background: var(--color-dark);
   color: var(--color-white);
-  font-size: 100px;
+  font-size: 53px;
   font-weight: 300;
   padding-inline: 2vw;
 }
@@ -286,7 +286,7 @@ body.solo-screen {
   align-items: center;
   justify-content: center;
   background: var(--color-white);
-  font-size: 80px;
+  font-size: 44px;
   /* font-size: clamp(20px, 2.2vw, 32px); */
   font-weight: 500;
   color: #1a1a1a;
@@ -307,14 +307,14 @@ body.solo-screen {
 }
 
 .added-toast__title {
-  font-size: 100px;
+  font-size: 53px;
   font-weight: 800;
   color: #1a1a1a;
   line-height: 1.4;
 }
 
 .added-toast__price {
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -337,7 +337,7 @@ body.solo-screen {
 }
 
 .ingredient-row__name {
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
   color: #1a1a1a;
 }
@@ -352,7 +352,7 @@ body.solo-screen {
   border-radius: clamp(8px, 0.8vw, 12px);
   background: #eee;
   color: #1a1a1a;
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -365,21 +365,21 @@ body.solo-screen {
 /* 최종 확인 화면 줄 아래에 붙는 재료 변경 요약 */
 .review-line__mods {
   margin: 0 0 clamp(10px, 1.2vw, 16px);
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 500;
   color: #1a1a1a;
 }
 
 #ingredient-title {
-  font-size: 80px;
+  font-size: 44px;
 }
 
 #ingredient-subtitle {
-  font-size: 52px;
+  font-size: 28px;
 }
 
 .menu-help__desc{
-  font-size: 52px;
+  font-size: 28px;
 }
 /* 음료 선택: 페이지 넘김 화살표는 화면 맨 아래. 좌우는 헤더 제목 여백(48px), 위아래는 헤더와 비슷한 정도(58px) */
 .menu-content > .bottom {

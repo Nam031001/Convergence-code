@@ -55,7 +55,7 @@ body,
   padding: 48px 40px;
   color: var(--color-white);
   /* font-size: clamp(15px, 1.5vw, 22px); */
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 400;
   text-align: left;
 }
@@ -93,7 +93,7 @@ body,
 
 .menu-header__title {
   /* font-size: clamp(22px, 2.6vw, 40px); */
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 600;
   line-height: 1.2;
   color: #1a1a1a;
@@ -111,7 +111,7 @@ body,
   border-radius: 999px;
   font-weight: 700;
   /* font-size: clamp(13px, 1.1vw, 18px); */
-  font-size: 52px;
+  font-size: 28px;
 }
 
 .pill-btn--light {
@@ -144,7 +144,7 @@ body,
   border-radius: clamp(8px, 0.8vw, 14px);
   background: var(--color-dark);
   color: var(--color-white);
-  font-size: 100px;
+  font-size: 53px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,14 +204,14 @@ body,
   border-radius: 999px;
   background: #2e8b3d;
   color: var(--color-white);
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.03em;
 }
 
 .menu-card__name {
   /* font-size: clamp(14px, 1.4vw, 20px); */
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 500;
   color: #1a1a1a;
   display: -webkit-box;
@@ -223,7 +223,7 @@ body,
 
 .menu-card__price {
   /* font-size: clamp(16px, 1.6vw, 24px); */
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -242,14 +242,14 @@ body,
 }
 
 .menu-help__title {
-  font-size: 64px;
+  font-size: 34px;
   font-weight: 800;
   color: #1a1a1a;
   margin-bottom: 0;
 }
 
 .menu-help__desc {
-  font-size: 52px;
+  font-size: 28px;
   color: #555;
   line-height: 1.5;
 }
@@ -296,7 +296,7 @@ body,
 }
 
 .cart-bar__total {
-  font-size: 64px;
+  font-size: 34px;
   font-weight: 800;
   color: #f2b51b;
 }
@@ -306,7 +306,7 @@ body,
   padding: 42px 84px;
   /* border-radius: clamp(8px, 0.8vw, 12px); */
   /* font-size: clamp(16px, 1.8vw, 26px); */
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
   background: #4a4a4a;
   color: #9a9a9a;
@@ -348,7 +348,7 @@ body,
   /* min-height: clamp(64px, 9vh, 110px); */
   min-height: 354px;
   padding: clamp(10px, 1.2vw, 18px) clamp(18px, 2.4vw, 36px);
-  font-size: 52px;
+  font-size: 28px;
   color: #888;
 }
 
@@ -384,13 +384,13 @@ body,
 }
 
 .cart-preview__name {
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 600;
   color: var(--color-white);
 }
 
 .cart-preview__option {
-  font-size: 52px;
+  font-size: 28px;
   color: #aaa;
 }
 
@@ -407,7 +407,7 @@ body,
   width: clamp(28px, 3vw, 40px);
   background: #3a3a3a;
   color: var(--color-white);
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -421,7 +421,7 @@ body,
   justify-content: center;
   background: var(--color-white);
   color: #1a1a1a;
-  font-size: 52px;
+  font-size: 28px;
   font-weight: 800;
 }
 
@@ -447,7 +447,7 @@ body,
   border-radius: clamp(6px, 0.6vw, 10px);
   background: rgba(0, 0, 0, 0.55);
   color: var(--color-white);
-  font-size: 52px;
+  font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -545,7 +545,7 @@ body.low-stance .cart-bar {
 .quick-add-modal__name {
   margin: 0;
   /* font-size: clamp(20px, 2.2vw, 32px); */
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 500;
   color: #1a1a1a;
   text-align: center;
@@ -554,7 +554,7 @@ body.low-stance .cart-bar {
 .quick-add-modal__price {
   margin: 0;
   /* font-size: clamp(20px, 2.2vw, 32px); */
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 700;
   color: #1a1a1a;
   text-align: center;
@@ -574,7 +574,7 @@ body.low-stance .cart-bar {
 }
 
 #cart-total {
-  font-size: 80px;
+  font-size: 44px;
   font-weight: 500;
 }
 
@@ -587,5 +587,5 @@ body.low-stance .cart-bar {
 }
 
 .order-complete__title {
-  font-size: 100px;
+  font-size: 53px;
 }
