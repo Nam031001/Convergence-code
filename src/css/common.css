@@ -7,7 +7,7 @@
   --color-dark: #262626;
   --color-dark-hover: #3a3a3a;
   --color-white: #ffffff;
-  --app-max-width: 1600px;
+  --app-max-width: 853.33px;
 }
 
 * {
@@ -108,8 +108,8 @@ img {
   transform: translate(-50%, -50%) scale(0.96);
   z-index: 200;
   max-width: 80%;
-  padding: clamp(18px, 2vw, 28px) clamp(26px, 3vw, 44px);
-  border-radius: clamp(10px, 1vw, 16px);
+  padding: clamp(9.6px, 2vw, 14.93px) clamp(13.87px, 3vw, 23.47px);
+  border-radius: clamp(5.33px, 1vw, 8.53px);
   background: #1a1a1a;
   color: #fff;
   font-size: 34px;
@@ -118,7 +118,7 @@ img {
   line-height: 1.4;
   opacity: 0;
   pointer-events: none;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 5.33px 17.07px rgba(0, 0, 0, 0.35);
   transition:
     opacity 0.25s ease,
     transform 0.25s ease;
