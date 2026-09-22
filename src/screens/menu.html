@@ -102,6 +102,17 @@
       </div>
     </div>
 
+    <!-- 장바구니 미리보기에서 수량 1개일 때 "-"를 누르면 뜨는 삭제 확인 팝업 -->
+    <div class="quick-add-modal" id="confirm-remove-modal" hidden>
+      <div class="quick-add-modal__card">
+        <p class="quick-add-modal__name" id="confirm-remove-message" data-i18n="confirmRemove">삭제하시겠습니까?</p>
+        <div class="quick-add-modal__actions">
+          <button class="step-actions__prev" type="button" id="confirm-remove-cancel" data-i18n="cancel">취소</button>
+          <button class="step-actions__confirm" type="button" id="confirm-remove-ok" data-i18n="confirm">확인</button>
+        </div>
+      </div>
+    </div>
+
     <script src="../js/kiosk-guard.js"></script>
     <script src="../js/menu-data.js"></script>
     <script src="../js/kiosk-state.js"></script>

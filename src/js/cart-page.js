@@ -89,6 +89,34 @@
     dotsEl.appendChild(dot);
   }
 
+  // ---------- 수량 1개에서 "-" 를 누르면 뜨는 삭제 확인 팝업 ----------
+  const confirmModal = document.getElementById("confirm-remove-modal");
+  let pendingRemoveId = null;
+  let pendingRemovePage = safePage;
+
+  function closeConfirmModal() {
+    confirmModal.hidden = true;
+    pendingRemoveId = null;
+  }
+
+  listEl.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-remove-id]");
+    if (!btn) return;
+    pendingRemoveId = btn.dataset.removeId;
+    pendingRemovePage = btn.dataset.removePage;
+    confirmModal.hidden = false;
+  });
+
+  document.getElementById("confirm-remove-cancel").addEventListener("click", closeConfirmModal);
+  // 팝업 카드 바깥(어두운 배경)을 눌러도 취소와 같이 닫는다. (빠른 담기 팝업과 동일한 동작)
+  confirmModal.addEventListener("click", (e) => {
+    if (e.target === confirmModal) closeConfirmModal();
+  });
+  document.getElementById("confirm-remove-ok").addEventListener("click", () => {
+    if (!pendingRemoveId) return;
+    location.href = `cart.html?remove=${pendingRemoveId}&page=${pendingRemovePage}`;
+  });
+
   function editHref(page, it) {
     const idParam = encodeURIComponent(it.itemId);
     // 수정하는 항목의 현재 선택(사이드/음료/재료 변경/수량)을 그대로 들고 가서 미리 선택된 상태로 열리게 한다.
@@ -148,7 +176,11 @@
         <div class="cart-item__footer">
           <span class="cart-item__price">${window.KioskState.formatPrice(it.unitPrice * it.qty)}</span>
           <div class="cart-item__qty">
-            <a class="cart-item__qty-btn" href="cart.html?dec=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}">−</a>
+            ${
+              it.qty > 1
+                ? `<a class="cart-item__qty-btn" href="cart.html?dec=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}">−</a>`
+                : `<button class="cart-item__qty-btn" type="button" data-remove-id="${encodeURIComponent(it.id)}" data-remove-page="${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}">−</button>`
+            }
             <span class="cart-item__qty-value">${it.qty}</span>
             <a class="cart-item__qty-btn" href="cart.html?inc=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyPlus")}">+</a>
           </div>

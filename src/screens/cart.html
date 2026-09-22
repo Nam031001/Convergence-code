@@ -34,6 +34,20 @@
     <a class="step-actions__confirm" id="btn-complete" href="payment.html" data-i18n="orderCompleteBtn">주문완료</a>
   </footer>
 
+  <!--
+    수량이 1개인 상태에서 "-"를 누르면 바로 지우지 않고 이 확인 팝업을 띄운다.
+    빠른 담기 팝업(.quick-add-modal)과 같은 틀을 재사용해서 배경/카드 스타일을 새로 안 만든다.
+  -->
+  <div class="quick-add-modal" id="confirm-remove-modal" hidden>
+    <div class="quick-add-modal__card">
+      <p class="quick-add-modal__name" id="confirm-remove-message" data-i18n="confirmRemove">삭제하시겠습니까?</p>
+      <div class="quick-add-modal__actions">
+        <button class="step-actions__prev" type="button" id="confirm-remove-cancel" data-i18n="cancel">취소</button>
+        <button class="step-actions__confirm" type="button" id="confirm-remove-ok" data-i18n="confirm">확인</button>
+      </div>
+    </div>
+  </div>
+
   <script src="../js/kiosk-guard.js"></script>
   <script src="../js/menu-data.js"></script>
   <script src="../js/kiosk-state.js"></script>

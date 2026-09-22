@@ -52,6 +52,7 @@ window.KioskState = (function () {
     edit: { ko: "수정", en: "Edit" },
     editLink: { ko: "수정하기", en: "Edit" },
     remove: { ko: "지우기", en: "Remove" },
+    confirmRemove: { ko: "삭제하시겠습니까?", en: "Remove this item?" },
     ingredientEdit: { ko: "재료추가/변경", en: "Add/Change Ingredients" },
     qtyMinus: { ko: "수량 줄이기", en: "Decrease quantity" },
     qtyPlus: { ko: "수량 늘리기", en: "Increase quantity" },

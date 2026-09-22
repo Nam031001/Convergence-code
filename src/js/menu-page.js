@@ -24,6 +24,32 @@
   const cartPrevBtn = document.getElementById("cart-preview-prev");
   const cartNextBtn = document.getElementById("cart-preview-next");
 
+  // 수량 1개에서 "-"를 누르면 바로 빼지 않고 삭제 확인 팝업을 띄운다.
+  // (빠른 담기 팝업과 같은 .quick-add-modal 틀을 재사용)
+  const confirmRemoveModal = document.getElementById("confirm-remove-modal");
+  let pendingRemoveItemId = null;
+
+  function openConfirmRemove(itemId) {
+    pendingRemoveItemId = itemId;
+    confirmRemoveModal.hidden = false;
+  }
+
+  function closeConfirmRemove() {
+    confirmRemoveModal.hidden = true;
+    pendingRemoveItemId = null;
+  }
+
+  document.getElementById("confirm-remove-cancel").addEventListener("click", closeConfirmRemove);
+  confirmRemoveModal.addEventListener("click", (e) => {
+    if (e.target === confirmRemoveModal) closeConfirmRemove();
+  });
+  document.getElementById("confirm-remove-ok").addEventListener("click", () => {
+    if (!pendingRemoveItemId) return;
+    window.KioskState.removeCartItem(pendingRemoveItemId);
+    closeConfirmRemove();
+    renderCartPreview();
+  });
+
   function updateCartPreviewNav() {
     const el = cartPreviewListEl;
     cartPrevBtn.disabled = el.scrollTop <= 1;
@@ -77,8 +103,12 @@
 
       const [minusBtn, plusBtn] = row.querySelectorAll(".cart-preview__qty-btn");
       minusBtn.addEventListener("click", () => {
-        window.KioskState.updateCartItemQty(it.id, -1);
-        renderCartPreview();
+        if (it.qty > 1) {
+          window.KioskState.updateCartItemQty(it.id, -1);
+          renderCartPreview();
+        } else {
+          openConfirmRemove(it.id);
+        }
       });
       plusBtn.addEventListener("click", () => {
         window.KioskState.updateCartItemQty(it.id, 1);
