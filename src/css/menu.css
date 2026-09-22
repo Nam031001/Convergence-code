@@ -28,7 +28,8 @@ body,
   /* height: clamp(30px, 3.4vw, 52px); */
   height: 68.27px;
   width: 77.87px;
-  margin: clamp(8.53px, 2vw, 14.93px) clamp(8.53px, 2vw, 14.93px) clamp(4.27px, 1vw, 8.53px);
+  margin: clamp(8.53px, 2vw, 14.93px) clamp(8.53px, 2vw, 14.93px)
+    clamp(4.27px, 1vw, 8.53px);
   margin-bottom: 36.8px;
 }
 
@@ -175,7 +176,6 @@ body,
   border-radius: clamp(5.33px, 1vw, 8.53px);
   background: var(--color-white);
   text-align: left;
-  min-height: 250.67px;
 }
 
 .menu-card__thumb {
@@ -183,7 +183,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 4 / 2;
+  aspect-ratio: 4 / 3;
   margin: -16px -16px 0;
   border-radius: clamp(5.33px, 1vw, 8.53px) clamp(5.33px, 1vw, 8.53px) 0 0;
   background: #eee;
@@ -196,7 +196,7 @@ body,
   color: #b9b9b9;
 }
 
-.menu-card__badge {
+/* .menu-card__badge {
   position: absolute;
   top: clamp(3.2px, 0.7vw, 5.33px);
   left: clamp(3.2px, 0.7vw, 5.33px);
@@ -207,7 +207,7 @@ body,
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.03em;
-}
+} */
 
 .menu-card__name {
   /* font-size: clamp(14px, 1.4vw, 20px); */
@@ -333,8 +333,10 @@ body,
   position: relative;
   flex-shrink: 0;
   /* min-height: clamp(64px, 9vh, 110px); */
-  min-height: 188.8px;
-  max-height: clamp(85.33px, 24vh, 170.67px);
+  /* 버거 세트(이름+사이드+음료+재료변경) 한 항목이 잘리지 않고 다 보이는 최소 높이(약 191px) 기준.
+     min > max 로 서로 충돌하지 않도록 둘 다 이 값 이상으로 맞춘다. */
+  min-height: 260px;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -372,7 +374,8 @@ body,
   align-items: center;
   justify-content: space-between;
   gap: clamp(5.33px, 1.2vw, 9.6px);
-  padding: clamp(5.33px, 1.2vw, 9.6px) clamp(9.6px, 2.4vw, 19.2px);
+  /* padding: clamp(5.33px, 1.2vw, 9.6px) clamp(9.6px, 2.4vw, 19.2px); */
+  padding: 30px;
   border-bottom: 0.53px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -384,12 +387,14 @@ body,
 }
 
 .cart-preview__name {
+  margin: 0;
   font-size: 28px;
   font-weight: 600;
   color: var(--color-white);
 }
 
 .cart-preview__option {
+  margin: 0;
   font-size: 28px;
   color: #aaa;
 }
@@ -430,6 +435,7 @@ body,
   top: 0;
   bottom: 0;
   right: clamp(5.33px, 1.2vw, 10.67px);
+  width: 66px;
   height: 100%;
   display: flex;
   flex-direction: column;
