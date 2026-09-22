@@ -34,7 +34,7 @@
   color: var(--color-red);
   font-weight: 700;
   /* font-size: clamp(14px, 1.2vw, 20px); */
-  font-size: 28px;
+  font-size: 34px;
 }
 
 .promo {
@@ -87,6 +87,6 @@
 
 .order-btn span {
   /* font-size: clamp(20px, 2vw, 32px); */
-  font-size: 44px;
+  font-size: 66px;
   font-weight: 700;
 }
