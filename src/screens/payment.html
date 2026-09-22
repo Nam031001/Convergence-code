@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>맥도날드 키오스크</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/item-detail.css">
+  <link rel="stylesheet" href="../css/cart.css">
+</head>
+<body class="payment-page">
+  <header class="cart-header">
+    <img class="cart-header__logo" src="../../asset/logo.png" alt="맥도날드 로고" data-i18n-alt="logoAlt">
+    <h1 class="cart-header__title" data-i18n="paymentSelectTitle">결제방법 선택</h1>
+  </header>
+
+  <div class="payment-body">
+    <p class="payment-body__title" data-i18n="paymentSelectDesc">결제방법을 선택해주세요</p>
+    <div class="payment-methods">
+      <a class="payment-method" href="order-complete.html" data-i18n="paymentMobileVoucher">모바일 상품권</a>
+      <a class="payment-method" href="order-complete.html" data-i18n="paymentCard">카드 결제</a>
+      <a class="payment-method" href="order-complete.html" data-i18n="paymentEasyPay">간편 결제</a>
+    </div>
+  </div>
+
+  <footer class="cancel-bar">
+    <a class="cancel-bar__btn" href="cart.html" data-i18n="cancel">취소</a>
+  </footer>
+
+  <script src="../js/kiosk-guard.js"></script>
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/kiosk-state.js"></script>
+</body>
+</html>

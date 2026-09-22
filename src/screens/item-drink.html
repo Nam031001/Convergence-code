@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>맥도날드 키오스크</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/item-detail.css">
+</head>
+<body>
+  <aside class="category-nav">
+    <img class="category-nav__logo" src="../../asset/logo.png" alt="맥도날드 로고" data-i18n-alt="logoAlt">
+    <nav class="category-nav__list" id="step-nav-list"></nav>
+    <nav class="category-nav__utility" id="category-nav-utility"></nav>
+  </aside>
+
+  <div class="menu-content">
+    <header class="menu-header">
+      <h1 class="menu-header__title" id="step-title">메뉴</h1>
+      <div class="menu-header__actions">
+        <!-- <button class="pill-btn pill-btn--muted" type="button" id="btn-nutrition">영양정보</button> -->
+      </div>
+    </header>
+
+    <div class="item-detail-sections">
+      <div class="option-group">
+        <h2 class="option-group__label" data-i18n="drinkSelectTitle">음료 선택</h2>
+
+        <div class="option-pages" id="drink-pages">
+            <div class="option-group__grid option-group__grid--fixed2 option-page is-active" data-page="0">
+              <a class="option-card" data-id="cola">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">코카-콜라</span>
+              </a>
+              <a class="option-card" data-id="sprite">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">스프라이트(사이다)</span>
+              </a>
+              <a class="option-card" data-id="orange">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">오렌지 주스</span>
+              </a>
+              <a class="option-card" data-id="water">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">생수</span>
+              </a>
+            </div>
+
+            <div class="option-group__grid option-group__grid--fixed2 option-page" data-page="1">
+              <a class="option-card" data-id="americano">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">아메리카노</span>
+              </a>
+              <a class="option-card" data-id="latte">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">카페라떼</span>
+              </a>
+              <a class="option-card" data-id="fanta">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">환타</span>
+              </a>
+              <a class="option-card" data-id="zerocola">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">제로콜라</span>
+              </a>
+            </div>
+
+            <div class="option-group__grid option-group__grid--fixed2 option-page" data-page="2">
+              <a class="option-card" data-id="shake">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">딸기 쉐이크</span>
+              </a>
+              <a class="option-card" data-id="icetea">
+                <span class="option-card__thumb" aria-hidden="true"><svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none"><path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/><rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/><path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/></svg></span>
+                <span class="option-card__label">아이스티</span>
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 페이지 넘김 화살표: 화면 맨 아래에 붙인다 -->
+    <div class="bottom">
+      <button class="menu-pager__arrow" type="button" id="drink-prev-page" aria-label="이전 페이지" data-i18n-aria="prevPage">‹</button>
+      <div class="menu-pager__dots" id="drink-dots"></div>
+      <button class="menu-pager__arrow" type="button" id="drink-next-page" aria-label="다음 페이지" data-i18n-aria="nextPage">›</button>
+    </div>
+
+    <footer class="step-actions">
+      <a class="step-actions__prev" data-home data-i18n="home">처음으로</a>
+      <a class="step-actions__confirm" id="btn-cancel" data-i18n="cancel">취소</a>
+    </footer>
+  </div>
+
+  <script src="../js/kiosk-guard.js"></script>
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/kiosk-state.js"></script>
+  <script src="../js/item-drink-page.js"></script>
+</body>
+</html>

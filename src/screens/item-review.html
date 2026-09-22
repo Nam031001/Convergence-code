@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>맥도날드 키오스크</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/item-detail.css">
+</head>
+<body class="solo-screen">
+  <div class="review-content">
+    <header class="review-header">
+      <div>
+        <h1 class="review-header__title" id="review-title">메뉴 - 세트</h1>
+        <p class="review-header__price" id="review-price">0원</p>
+      </div>
+      <!-- <button class="pill-btn pill-btn--muted" type="button" id="btn-nutrition">영양정보</button> -->
+    </header>
+
+    <div class="review-scroll">
+      <div class="review-image">
+        <svg class="review-image__icon" viewBox="0 0 48 48" fill="none">
+          <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
+          <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>
+          <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <div class="review-lines">
+        <div class="review-line">
+          <p class="review-line__name" id="line-burger-name">버거</p>
+          <p class="review-line__kcal">764 Kcal</p>
+          <p class="review-line__mods" id="line-burger-mods" hidden></p>
+          <a class="review-line__btn" id="btn-burger-ingredient" data-i18n="ingredientEdit">재료추가/변경</a>
+        </div>
+
+        <div class="review-line">
+          <p class="review-line__name" id="line-side-name">사이드</p>
+          <p class="review-line__kcal">764 Kcal</p>
+          <p class="review-line__mods" id="line-side-mods" hidden></p>
+          <a class="review-line__btn" id="btn-side-ingredient" data-i18n="ingredientEdit">재료추가/변경</a>
+          <a class="review-line__btn" id="btn-side-edit" data-i18n="edit">수정</a>
+        </div>
+
+        <div class="review-line">
+          <p class="review-line__name" id="line-drink-name">음료</p>
+          <p class="review-line__kcal">764 Kcal</p>
+          <a class="review-line__btn" id="btn-drink-edit" data-i18n="edit">수정</a>
+        </div>
+      </div>
+
+      <div class="review-qty">
+        <button class="review-qty__btn" type="button" id="qty-minus" aria-label="수량 줄이기" data-i18n-aria="qtyMinus">−</button>
+        <div class="review-qty__value" id="qty-value">1</div>
+        <button class="review-qty__btn" type="button" id="qty-plus" aria-label="수량 늘리기" data-i18n-aria="qtyPlus">+</button>
+      </div>
+    </div>
+
+    <footer class="step-actions">
+      <a class="step-actions__prev" id="btn-cancel" data-i18n="cancel">취소</a>
+      <a class="step-actions__confirm" id="btn-add-cart">장바구니 추가</a>
+    </footer>
+  </div>
+
+  <script src="../js/kiosk-guard.js"></script>
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/kiosk-state.js"></script>
+  <script src="../js/item-review-page.js"></script>
+</body>
+</html>

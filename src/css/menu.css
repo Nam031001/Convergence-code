@@ -1,0 +1,591 @@
+/* src/screens/menu.html 전용 스타일. 27인치 세로 키오스크(1440x2560) 기준.
+   이 페이지는 감싸는 래퍼 div 없이 body 가 바로 category-nav/menu-content 를 담고 있어서,
+   가로로 나란히 배치되는 레이아웃을 body 에 직접 준다. */
+body,
+.menu-screen {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: var(--app-max-width, 1600px);
+  margin: 0 auto;
+  flex-direction: row;
+  align-items: stretch;
+  background: #262626;
+}
+
+/* ---------- 좌측 카테고리 사이드바 ---------- */
+.category-nav {
+  /* flex: 0 0 clamp(140px, 24vw, 320px); */
+  flex: 0 0 391px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-red);
+  overflow-y: auto;
+}
+
+.category-nav__logo {
+  /* height: clamp(30px, 3.4vw, 52px); */
+  height: 128px;
+  width: 146px;
+  margin: clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px) clamp(8px, 1vw, 16px);
+  margin-bottom: 69px;
+}
+
+.category-nav__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 도움 기능/고대비 모드/낮은 자세: 위 목록과 섞이지 않도록 별도 nav로 분리하고,
+   위 목록이 flex:1 로 남는 공간을 모두 차지하므로 이 영역은 항상 사이드바 맨 아래에 붙는다. */
+.category-nav__utility {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.category-nav__item {
+  flex-shrink: 0;
+  /* padding: clamp(14px, 1.8vw, 26px) clamp(16px, 2vw, 28px); */
+  padding: 48px 40px;
+  color: var(--color-white);
+  /* font-size: clamp(15px, 1.5vw, 22px); */
+  font-size: 52px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.category-nav__item.is-active {
+  background: rgba(0, 0, 0, 0.22);
+  font-weight: 500;
+}
+
+.category-nav__item--utility {
+  font-weight: 400;
+  opacity: 0.92;
+}
+
+/* ---------- 우측 메뉴 콘텐츠 ---------- */
+.menu-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #f2b51b;
+  position: relative;
+}
+
+.menu-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 48px;
+  /* 상품명이 길어 2줄이 되면 고정 높이를 넘쳐 위/아래 여백이 사라지므로 최소 높이로 두고 늘어나게 한다 */
+  min-height: 220px;
+  /* margin-block: 76px; */
+}
+
+.menu-header__title {
+  /* font-size: clamp(22px, 2.6vw, 40px); */
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.menu-header__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 14px);
+  margin-left: auto;
+}
+
+.pill-btn {
+  padding: clamp(8px, 0.9vw, 14px) clamp(16px, 1.8vw, 26px);
+  border-radius: 999px;
+  font-weight: 700;
+  /* font-size: clamp(13px, 1.1vw, 18px); */
+  font-size: 52px;
+}
+
+.pill-btn--light {
+  background: var(--color-white);
+  color: var(--color-red);
+}
+
+.pill-btn--solid {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.menu-scroll-area {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding-inline: 64px;
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(8px, 1vw, 16px);
+}
+
+.menu-pager__arrow {
+  flex-shrink: 0;
+  align-self: center;
+  /* width: clamp(36px, 3.6vw, 56px);
+  height: clamp(36px, 3.6vw, 56px); */
+  width: 165px;
+  height: 165px;
+  border-radius: clamp(8px, 0.8vw, 14px);
+  background: var(--color-dark);
+  color: var(--color-white);
+  font-size: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* prev/next 는 a 태그라 href 없는 상태(더 넘길 페이지가 없을 때)를 :disabled 대신 .is-disabled 로 표시한다. */
+.menu-pager__arrow.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.menu-grid {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px;
+}
+
+.menu-card {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* gap: clamp(6px, 0.8vw, 10px); */
+  padding: 30px 30px 20px 30px;
+  /* padding: clamp(10px, 1.2vw, 18px); */
+  border-radius: clamp(10px, 1vw, 16px);
+  background: var(--color-white);
+  text-align: left;
+  min-height: 470px;
+}
+
+.menu-card__thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 2;
+  margin: -30px -30px 0;
+  border-radius: clamp(10px, 1vw, 16px) clamp(10px, 1vw, 16px) 0 0;
+  background: #eee;
+  margin-bottom: 20px;
+}
+
+.menu-card__thumb-icon {
+  width: clamp(36px, 4.4vw, 64px);
+  height: clamp(36px, 4.4vw, 64px);
+  color: #b9b9b9;
+}
+
+.menu-card__badge {
+  position: absolute;
+  top: clamp(6px, 0.7vw, 10px);
+  left: clamp(6px, 0.7vw, 10px);
+  padding: 2px clamp(8px, 0.8vw, 12px);
+  border-radius: 999px;
+  background: #2e8b3d;
+  color: var(--color-white);
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.menu-card__name {
+  /* font-size: clamp(14px, 1.4vw, 20px); */
+  font-size: 52px;
+  font-weight: 500;
+  color: #1a1a1a;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-height: 1.2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.menu-card__price {
+  /* font-size: clamp(16px, 1.6vw, 24px); */
+  font-size: 52px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.menu-help {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.2vw, 18px);
+  padding: clamp(40px, 6vw, 90px) clamp(20px, 2.4vw, 36px);
+  border-radius: clamp(10px, 1vw, 16px);
+  background: var(--color-white);
+  text-align: center;
+}
+
+.menu-help__title {
+  font-size: 64px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 0;
+}
+
+.menu-help__desc {
+  font-size: 52px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.menu-pager__dots {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gap: clamp(6px, 0.7vw, 10px); */
+  gap: 18px;
+  padding-bottom: clamp(10px, 1.4vw, 20px);
+}
+
+.menu-pager__dots.is-hidden,
+.menu-pager__arrow.is-hidden {
+  visibility: hidden;
+}
+
+.menu-pager__dot {
+  /* width: clamp(6px, 0.6vw, 10px);
+  height: clamp(6px, 0.6vw, 10px); */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.menu-pager__dot.is-active {
+  background: #1a1a1a;
+  width: 34px;
+  height: 34px;
+}
+
+/* ---------- 하단 장바구니 바 ---------- */
+.cart-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 1.6vw, 24px);
+  background: var(--color-dark);
+  padding-left: 54px;
+}
+
+.cart-bar__total {
+  font-size: 64px;
+  font-weight: 800;
+  color: #f2b51b;
+}
+
+.cart-bar__order {
+  /* padding: clamp(12px, 1.4vw, 20px) clamp(28px, 3.2vw, 52px); */
+  padding: 42px 84px;
+  /* border-radius: clamp(8px, 0.8vw, 12px); */
+  /* font-size: clamp(16px, 1.8vw, 26px); */
+  font-size: 52px;
+  font-weight: 700;
+  background: #4a4a4a;
+  color: #9a9a9a;
+}
+
+.cart-bar__order.is-enabled {
+  background: #da291c;
+  color: #ffffff;
+}
+
+/* ---------- 화면 스크롤용 위/아래 버튼 ---------- */
+.scroll-controls {
+  position: absolute;
+  right: clamp(10px, 1.2vw, 20px);
+  bottom: clamp(90px, 10vw, 140px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.7vw, 10px);
+  z-index: 5;
+}
+
+/* ---------- 장바구니 미리보기 (페이지 이동 없이 메뉴 화면 하단에 바로 보여줌) ---------- */
+.cart-preview {
+  position: relative;
+  flex-shrink: 0;
+  /* min-height: clamp(64px, 9vh, 110px); */
+  min-height: 354px;
+  max-height: clamp(160px, 24vh, 320px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #1c1c1c;
+}
+
+.cart-preview__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* min-height: clamp(64px, 9vh, 110px); */
+  min-height: 354px;
+  padding: clamp(10px, 1.2vw, 18px) clamp(18px, 2.4vw, 36px);
+  font-size: 52px;
+  color: #888;
+}
+
+.cart-preview__list {
+  position: relative; /* 항목 offsetTop 기준(화살표로 항목 단위 이동) */
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding-right: 110px; /* 오른쪽 ︿/﹀ 화살표와 수량 버튼이 겹치지 않게 */
+}
+
+.cart-preview__list::-webkit-scrollbar {
+  display: none;
+}
+
+.cart-preview__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(10px, 1.2vw, 18px);
+  padding: clamp(10px, 1.2vw, 18px) clamp(18px, 2.4vw, 36px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-preview__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cart-preview__name {
+  font-size: 52px;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.cart-preview__option {
+  font-size: 52px;
+  color: #aaa;
+}
+
+.cart-preview__qty {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  border: 2px solid var(--color-white);
+  border-radius: clamp(6px, 0.6vw, 10px);
+  overflow: hidden;
+}
+
+.cart-preview__qty-btn {
+  width: clamp(28px, 3vw, 40px);
+  background: #3a3a3a;
+  color: var(--color-white);
+  font-size: 52px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-preview__qty-value {
+  width: clamp(28px, 3vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  color: #1a1a1a;
+  font-size: 52px;
+  font-weight: 800;
+}
+
+.cart-preview-toggle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: clamp(10px, 1.2vw, 20px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.7vw, 10px);
+  z-index: 5;
+}
+
+.cart-preview-toggle .scroll-controls__btn:disabled {
+  opacity: 0.35;
+}
+
+.cart-preview-toggle .scroll-controls__btn {
+  flex: 1;
+  width: clamp(32px, 3.2vw, 48px);
+  border-radius: clamp(6px, 0.6vw, 10px);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--color-white);
+  font-size: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 64px;
+  margin-inline: 64px;
+}
+
+/* ---------- 접근 모드 (더미 구현) ---------- */
+body.high-contrast .menu-content {
+  background: #ffffff;
+}
+
+body.high-contrast .category-nav {
+  background: #000000;
+}
+
+body.high-contrast .category-nav__item.is-active {
+  background: var(--color-white);
+  color: #000000;
+}
+
+body.high-contrast .menu-header__title {
+  color: #000000;
+}
+
+body.high-contrast .menu-card {
+  border: 2px solid #000000;
+}
+
+body.high-contrast .cart-bar {
+  background: #000000;
+}
+
+body.low-stance .menu-header {
+  padding-top: clamp(60px, 10vw, 160px);
+}
+
+body.low-stance .cart-bar {
+  padding-block: clamp(26px, 4vw, 56px);
+}
+
+/* ---------- 빠른 담기 팝업 (추천메뉴/웰런치/버거 외 카테고리) ----------
+   화면 이동이 아니라 지금 화면 위에 뜨는 대화상자라 position:fixed 로 같은 문서 안에 둔다. */
+.quick-add-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 40px);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.quick-add-modal[hidden] {
+  display: none;
+}
+
+.quick-add-modal__card {
+  width: 100%;
+  /* max-width: clamp(280px, 62vw, 720px); */
+  height: 75vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  /* padding: clamp(28px, 3.6vw, 56px) clamp(20px, 2.6vw, 40px); */
+  padding: 54px;
+  border-radius: clamp(18px, 1.8vw, 32px);
+  background: #f2b51b;
+  justify-content: end;
+}
+
+.quick-add-modal__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(220px, 40vw, 80vw);
+  aspect-ratio: 1;
+  background-color: white;
+}
+
+.quick-add-modal__image-icon {
+  width: 70%;
+  height: 70%;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.quick-add-modal__name {
+  margin: 0;
+  /* font-size: clamp(20px, 2.2vw, 32px); */
+  font-size: 80px;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.quick-add-modal__price {
+  margin: 0;
+  /* font-size: clamp(20px, 2.2vw, 32px); */
+  font-size: 80px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.quick-add-modal__actions {
+  display: flex;
+  gap: clamp(12px, 1.6vw, 20px);
+  width: 100%;
+  margin-top: clamp(8px, 1vw, 14px);
+}
+
+.quick-add-modal__actions .step-actions__prev,
+.quick-add-modal__actions .step-actions__confirm {
+  flex: 1;
+  text-align: center;
+}
+
+#cart-total {
+  font-size: 80px;
+  font-weight: 500;
+}
+
+.menu {
+  margin-block: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.order-complete__title {
+  font-size: 100px;
+}

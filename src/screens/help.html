@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>맥도날드 키오스크</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/item-detail.css">
+</head>
+<body>
+  <aside class="category-nav">
+    <img class="category-nav__logo" src="../../asset/logo.png" alt="맥도날드 로고" data-i18n-alt="logoAlt">
+    <nav class="category-nav__list" id="category-nav-list"></nav>
+    <nav class="category-nav__utility" id="category-nav-utility"></nav>
+  </aside>
+
+  <div class="menu-content">
+    <header class="menu-header">
+      <h1 class="menu-header__title" data-i18n="helpTitle">도움 기능</h1>
+    </header>
+
+    <div class="item-detail-sections">
+      <div class="menu-help">
+        <p class="menu-help__title" data-i18n="helpQuestion">도움이 필요하신가요?</p>
+        <p class="menu-help__desc"><span data-i18n="helpDescLine1">화면 앞에서 잠시만 기다려주세요.</span><br><span data-i18n="helpDescLine2">매장 직원이 도와드리러 오겠습니다.</span></p>
+      </div>
+    </div>
+
+    <footer class="cancel-bar">
+      <a class="cancel-bar__btn" href="menu.html" data-i18n="backToMenu">메뉴로 돌아가기</a>
+    </footer>
+  </div>
+
+  <script src="../js/kiosk-guard.js"></script>
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/kiosk-state.js"></script>
+  <script>
+    window.KioskState.renderCategoryNav(document.getElementById("category-nav-list"), null);
+  </script>
+</body>
+</html>

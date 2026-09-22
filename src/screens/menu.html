@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>맥도날드 키오스크</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/menu.css" />
+    <link rel="stylesheet" href="../css/item-detail.css" />
+  </head>
+  <body>
+    <aside class="category-nav">
+      <img
+        class="category-nav__logo"
+        src="../../asset/logo.png"
+        alt="맥도날드 로고"
+        data-i18n-alt="logoAlt" />
+      <nav class="category-nav__list" id="category-nav-list"></nav>
+      <nav class="category-nav__utility" id="category-nav-utility"></nav>
+    </aside>
+
+    <div class="menu-content">
+      <header class="menu-header">
+        <h1 class="menu-header__title" id="menu-title">추천메뉴</h1>
+        <div class="menu-header__actions">
+          <!-- <button
+            class="pill-btn pill-btn--light"
+            type="button"
+            id="lang-toggle">
+            ENG
+          </button> -->
+          <a class="pill-btn pill-btn--solid" id="btn-home" href="../../index.html" data-i18n="home">
+            처음으로
+          </a>
+        </div>
+      </header>
+
+      <div class="menu-scroll-area" id="menu-scroll-area">
+        <div class="menu-grid" id="menu-grid"></div>
+      </div>
+
+      <div class="bottom">
+      <a class="menu-pager__arrow" id="pager-prev" aria-label="이전 메뉴" data-i18n-aria="prevMenuPage">‹</a>
+      <div class="menu-pager__dots" id="menu-dots"></div>
+      <a class="menu-pager__arrow" id="pager-next" aria-label="다음 메뉴" data-i18n-aria="nextMenuPage">›</a>
+      </div>
+
+      <footer class="cart-bar">
+        <div class="cart-bar__total">
+          <span id="cart-total">0</span>
+          <span style="font-size: 52px;" data-i18n="won">원</span>
+        </div>
+        <a class="cart-bar__order" id="btn-order" data-i18n="orderNow">
+          주문하기
+        </a>
+      </footer>
+
+      <!-- 장바구니 미리보기: 페이지 이동 없이 지금 화면에서 바로 담긴 항목/수량을 보여준다. 기본은 펼쳐진 상태. -->
+      <div class="cart-preview" id="cart-preview">
+        <div class="cart-preview__list" id="cart-preview-list"></div>
+
+        <div class="cart-preview-toggle">
+          <button class="scroll-controls__btn" type="button" id="cart-preview-prev" aria-label="이전 메뉴" data-i18n-aria="prevMenuPage">︿</button>
+          <button class="scroll-controls__btn" type="button" id="cart-preview-next" aria-label="다음 메뉴" data-i18n-aria="nextMenuPage">﹀</button>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      추천메뉴/웰런치/버거를 제외한 카테고리는 화면 이동 없이 이 팝업으로 바로 담는다.
+      다른 화면과 다르게 "페이지 이동"이 아니라 지금 보고 있는 화면 위에 뜨는 대화상자라서 a 태그가 아니다.
+    -->
+    <div class="quick-add-modal" id="quick-add-modal" hidden>
+      <div class="quick-add-modal__card">
+        <div class="menu">
+        <div class="quick-add-modal__image" aria-hidden="true">
+          <svg class="quick-add-modal__image-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
+            <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>
+            <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
+          </svg>
+        </div>
+        
+          <p class="quick-add-modal__name" id="quick-add-name">메뉴</p>
+          <p class="quick-add-modal__price" id="quick-add-price">0원</p>
+        </div>
+        <!-- <button class="pill-btn pill-btn--muted" type="button" id="quick-add-nutrition">영양정보</button> -->
+
+        <div class="review-qty">
+          <button class="review-qty__btn" type="button" id="quick-add-qty-minus" aria-label="수량 줄이기" data-i18n-aria="qtyMinus">−</button>
+          <div class="review-qty__value" id="quick-add-qty-value">1</div>
+          <button class="review-qty__btn" type="button" id="quick-add-qty-plus" aria-label="수량 늘리기" data-i18n-aria="qtyPlus">+</button>
+        </div>
+
+        <div class="quick-add-modal__actions">
+          <button class="step-actions__prev" type="button" id="quick-add-cancel" data-i18n="cancel">취소</button>
+          <a class="step-actions__confirm" id="quick-add-confirm" data-i18n="addToCart">장바구니 추가</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/kiosk-guard.js"></script>
+    <script src="../js/menu-data.js"></script>
+    <script src="../js/kiosk-state.js"></script>
+    <script src="../js/menu-page.js"></script>
+  </body>
+</html>

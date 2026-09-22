@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>맥도날드 키오스크</title>
+    <link rel="stylesheet" href="src/css/common.css" />
+    <link rel="stylesheet" href="src/css/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar">
+        <img class="top-bar__logo" src="asset/logo.png" alt="맥도날드 로고" data-i18n-alt="logoAlt" />
+        <button class="lang-btn" type="button" id="lang-toggle">ENG</button>
+      </header>
+
+      <main class="promo">
+        <img
+          class="promo__banner"
+          src="asset/banner.png"
+          alt="더블 맥스파이시 상하이 버거 - 버거의 맛과 크기를 더블로 높였다!"
+          data-i18n-alt="bannerAlt" />
+      </main>
+
+      <footer class="order-type">
+        <a class="order-btn" href="./src/screens/menu.html?orderType=dine-in">
+          <svg
+            class="order-btn__icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true">
+            <path
+              d="M3 9.5 4.2 4h15.6l1.2 5.5"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M3 9.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M4.5 11v9h15v-9"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M9.5 20v-5.5a2.5 2.5 0 0 1 5 0V20"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <span data-i18n="dineIn">매장</span>
+        </a>
+        <a class="order-btn" href="./src/screens/menu.html?orderType=takeout">
+          <svg
+            class="order-btn__icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true">
+            <path
+              d="M6 8h12l-1 12.2a1.5 1.5 0 0 1-1.5 1.3h-7a1.5 1.5 0 0 1-1.5-1.3L6 8Z"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linejoin="round" />
+            <path
+              d="M9 8V6a3 3 0 0 1 6 0v2"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <span data-i18n="takeout">포장</span>
+        </a>
+      </footer>
+    </div>
+
+    <script src="src/js/kiosk-guard.js"></script>
+    <script src="src/js/kiosk-state.js"></script>
+    <script src="src/js/main.js"></script>
+  </body>
+</html>

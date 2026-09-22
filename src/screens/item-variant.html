@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>맥도날드 키오스크</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/item-detail.css">
+</head>
+<body>
+  <aside class="category-nav">
+    <img class="category-nav__logo" src="../../asset/logo.png" alt="맥도날드 로고" data-i18n-alt="logoAlt">
+    <nav class="category-nav__list" id="step-nav-list"></nav>
+    <nav class="category-nav__utility" id="category-nav-utility"></nav>
+  </aside>
+
+  <div class="menu-content">
+    <header class="menu-header">
+      <h1 class="menu-header__title" id="step-title">메뉴</h1>
+      <div class="menu-header__actions">
+        <!-- <button class="pill-btn pill-btn--muted" type="button" id="btn-nutrition">영양정보</button> -->
+      </div>
+    </header>
+
+    <div class="item-detail-sections">
+      <div class="option-group">
+        <h2 class="option-group__label" id="single-group-label">단품</h2>
+        <div class="option-group__grid option-group__grid--fixed2">
+          <a class="option-card" id="option-single">
+            <span class="option-card__thumb" aria-hidden="true">
+              <svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none">
+                <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
+                <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>
+                <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="option-card__label" id="single-card-label">단품</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <h2 class="option-group__label" id="set-group-label">세트</h2>
+        <div class="option-group__grid option-group__grid--fixed2">
+          <a class="option-card" id="option-set">
+            <span class="option-card__thumb" aria-hidden="true">
+              <svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none">
+                <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
+                <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>
+                <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="option-card__label" id="set-card-label">세트</span>
+          </a>
+          <a class="option-card" id="option-set-l">
+            <span class="option-card__thumb" aria-hidden="true">
+              <svg class="option-card__thumb-icon" viewBox="0 0 48 48" fill="none">
+                <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
+                <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>
+                <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="option-card__label" id="set-l-card-label">큰 세트(L)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="step-actions">
+      <a class="step-actions__prev" data-home data-i18n="home">처음으로</a>
+      <a class="step-actions__confirm" id="btn-cancel-detail" data-i18n="cancel">취소</a>
+    </footer>
+  </div>
+
+  <script src="../js/kiosk-guard.js"></script>
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/kiosk-state.js"></script>
+  <script src="../js/item-variant-page.js"></script>
+</body>
+</html>
