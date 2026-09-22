@@ -362,7 +362,7 @@ body,
   flex-direction: column;
   overflow-y: auto;
   scrollbar-width: none;
-  padding-right: 58.67px; /* 오른쪽 ︿/﹀ 화살표와 수량 버튼이 겹치지 않게 */
+  padding-right: 80px; /* 오른쪽 ︿/﹀ 화살표와 수량 버튼이 겹치지 않게 */
 }
 
 .cart-preview__list::-webkit-scrollbar {
@@ -409,7 +409,8 @@ body,
 }
 
 .cart-preview__qty-btn {
-  width: clamp(14.93px, 3vw, 21.33px);
+  /* width: clamp(14.93px, 3vw, 21.33px); */
+  width: 66px;
   background: #3a3a3a;
   color: var(--color-white);
   font-size: 28px;
@@ -420,7 +421,8 @@ body,
 }
 
 .cart-preview__qty-value {
-  width: clamp(14.93px, 3vw, 21.33px);
+  /* width: clamp(14.93px, 3vw, 21.33px); */
+  width: 66px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -449,7 +451,8 @@ body,
 
 .cart-preview-toggle .scroll-controls__btn {
   flex: 1;
-  width: clamp(17.07px, 3.2vw, 25.6px);
+  /* width: clamp(17.07px, 3.2vw, 25.6px); */
+  width: 66px;
   border-radius: clamp(3.2px, 0.6vw, 5.33px);
   background: rgba(0, 0, 0, 0.55);
   color: var(--color-white);
