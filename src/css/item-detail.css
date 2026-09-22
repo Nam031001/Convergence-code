@@ -256,7 +256,8 @@ body.solo-screen {
 }
 
 .review-line{
-  background: rgb(255, 223, 143);
+  background: #f4f3f3;
+  border: #b9b9b9 2px solid;
   padding: 26px;
   height: fit-content;
   border-radius: 10px;
@@ -321,7 +322,7 @@ body.solo-screen {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-white);
+  background: #f4f3f3;
   font-size: 53px;
   /* font-size: clamp(20px, 2.2vw, 32px); */
   font-weight: 500;
