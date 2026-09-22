@@ -282,10 +282,16 @@ body.payment-page {
 .order-complete {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: clamp(12.8px, 3vw, 23.47px);
+}
+
+.order-complete__lottie {
+  width: clamp(160px, 30vw, 340px);
+  aspect-ratio: 1;
 }
 
 .order-complete__title {
