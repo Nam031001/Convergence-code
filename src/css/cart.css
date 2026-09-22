@@ -10,6 +10,13 @@ body.cart-page {
   background: var(--color-white);
 }
 
+/* 쪽넘김(.bottom)은 menu.html 에서는 노란 .menu-content 위에 있어서 따로 배경이
+   필요 없지만, 여기(cart.html)는 body 배경이 흰색이라 노란 배경을 직접 줘야
+   메인 화면과 같은 모습이 된다. */
+body.cart-page .bottom {
+  background: #f2b51b;
+}
+
 .cart-header {
   flex-shrink: 0;
   display: flex;
@@ -36,10 +43,12 @@ body.cart-page {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: clamp(8.53px, 2vw, 14.93px) clamp(10.67px, 2.4vw, 19.2px);
   display: flex;
   flex-direction: column;
   gap: clamp(8.53px, 2vw, 14.93px);
+  /* gap 자체엔 배경색을 못 주니, 리스트 바탕을 노란색으로 깔고 각 카드(.cart-item)에
+     흰 배경을 줘서 카드 사이 틈(gap)만 노란색으로 보이게 한다. */
+  background: #f2b51b;
 }
 
 .cart-empty {
@@ -58,14 +67,15 @@ body.cart-page {
     늘어나고, aspect-ratio:1 때문에 그 늘어난 높이로 폭까지 커져서 카드마다 썸네일 크기가
     제각각이 됐다. flex-start로 늘어남을 막으면 썸네일 폭(clamp)만으로 정사각형 크기가
     정해져서 내용량과 무관하게 모든 카드가 같은 크기가 된다. */
-  gap: clamp(7.47px, 1.6vw, 12.8px);
-  padding-bottom: clamp(8.53px, 2vw, 14.93px);
+  gap: 34px;
   border-bottom: 0.53px solid #eee;
+  padding: 34px 34px ;
+  background: var(--color-white);
 }
 
 .cart-item__thumb {
   position: relative;
-  flex: 0 0 clamp(48px, 12vw, 85.33px);
+  flex: 0 0 350px;
   aspect-ratio: 1;
   border-radius: clamp(4.27px, 0.8vw, 6.4px);
   background: #eee;
@@ -97,17 +107,20 @@ body.cart-page {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(4.27px, 1vw, 7.47px);
+  justify-content: space-between;
+  height: -webkit-fill-available;
+  gap: 34px;
 }
 
 .cart-item__top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 5.33px;
 }
 
 .cart-item__name {
+  margin: 0;
   font-size: 44px;
   font-weight: 800;
   color: #1a1a1a;
@@ -115,7 +128,7 @@ body.cart-page {
 
 .cart-item__remove {
   flex-shrink: 0;
-  padding: clamp(3.2px, 0.7vw, 5.33px) clamp(7.47px, 1.5vw, 10.67px);
+  padding: 13px 26px;
   border-radius: 532.8px;
   background: var(--color-red);
   color: var(--color-white);
@@ -169,7 +182,8 @@ body.cart-page {
 }
 
 .cart-item__qty-btn {
-  width: clamp(17.07px, 3.6vw, 25.6px);
+  /* 메뉴 화면 장바구니 미리보기(.cart-preview__qty-btn)와 크기 통일 */
+  width: 66px;
   background: var(--color-dark);
   color: var(--color-white);
   font-size: 34px;
@@ -180,23 +194,13 @@ body.cart-page {
 }
 
 .cart-item__qty-value {
-  width: clamp(17.07px, 3.6vw, 25.6px);
+  width: 66px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 34px;
   font-weight: 800;
   color: #1a1a1a;
-}
-
-.cart-pager {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(5.33px, 1.4vw, 10.67px);
-  padding: clamp(3.2px, 1vw, 7.47px) 0;
-  background: #f2b51b;
 }
 
 .cart-summary {
@@ -244,7 +248,7 @@ body.payment-page {
 }
 
 .payment-body__title {
-  font-size: 44px;
+  font-size: 55px;
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -259,7 +263,7 @@ body.payment-page {
 .payment-method {
   word-break: keep-all; /* 글자 크기가 커져도 "카드 결제"가 글자 단위로 끊기지 않게 */
   flex: 1;
-  max-width: clamp(85.33px, 20vw, 149.33px);
+  max-width: calc(100vw / 3);
   aspect-ratio: 1;
   display: flex;
   align-items: center;

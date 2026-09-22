@@ -17,7 +17,7 @@ body,
 /* ---------- 좌측 카테고리 사이드바 ---------- */
 .category-nav {
   /* flex: 0 0 clamp(140px, 24vw, 320px); */
-  flex: 0 0 220px;
+  flex: 0 0 280px;
   display: flex;
   flex-direction: column;
   background: var(--color-red);
@@ -89,7 +89,7 @@ body,
   padding-inline: 25.6px;
   /* 상품명이 길어 2줄이 되면 고정 높이를 넘쳐 위/아래 여백이 사라지므로 최소 높이로 두고 늘어나게 한다 */
   min-height: 117.33px;
-  margin-block: 8px;
+  margin-block: 13px;
   margin-inline: 12px;
 }
 
@@ -173,7 +173,7 @@ body,
   flex-direction: column;
   align-items: stretch;
   gap: clamp(6px, 0.8vw, 10px);
-  padding: 20px;
+  padding: 17px 26px;
   /* padding: clamp(10px, 1.2vw, 18px); */
   border-radius: clamp(5.33px, 1vw, 8.53px);
   background: var(--color-white);
@@ -185,8 +185,11 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 4 / 2.4;
-  margin: -20px -20px 0;
+  aspect-ratio: 4 / 2.1;
+  /* .menu-card 의 padding-top(17px)과 값을 맞춰야 썸네일 위쪽이 카드 경계에 딱 맞아
+     카드의 둥근 모서리와 이어져 보인다. 어긋나면(예: -26px) 썸네일이 카드 밖으로
+     튀어나와 카드 모서리 지점엔 썸네일의 곧은 벽이 걸려 각지게 보인다. */
+  margin: -17px -26px 0;
   border-radius: clamp(5.33px, 1vw, 8.53px) clamp(5.33px, 1vw, 8.53px) 0 0;
   background: #eee;
   margin-bottom: 10.67px;
@@ -214,7 +217,7 @@ body,
 .menu-card__name {
   /* font-size: clamp(14px, 1.4vw, 20px); */
   font-size: 34px;
-  font-weight: 500;
+  font-weight: 600;
   color: #1a1a1a;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -225,9 +228,15 @@ body,
 
 .menu-card__price {
   /* font-size: clamp(16px, 1.6vw, 24px); */
-  font-size: 34px;
-  font-weight: 800;
+  font-size: 45px;
+  font-weight: 500;
   color: #1a1a1a;
+}
+
+.menu-card__price-won {
+  margin-left: 2px;
+  font-size: 34px;
+  font-weight: 500;
 }
 
 .menu-help {
@@ -305,7 +314,7 @@ body,
 
 .cart-bar__order {
   /* padding: clamp(12px, 1.4vw, 20px) clamp(28px, 3.2vw, 52px); */
-  padding: 22.4px 44.8px;
+  padding: 22.4px 68px;
   /* border-radius: clamp(8px, 0.8vw, 12px); */
   /* font-size: clamp(16px, 1.8vw, 26px); */
   font-size: 45px;
@@ -467,8 +476,10 @@ body,
 .bottom {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 34.13px;
-  margin-inline: 34.13px;
+  /* 실제로는 item-detail.css 의 `.menu-content > .bottom` 규칙(더 구체적이고 더 늦게 로드됨)이
+     이 값을 덮어써서 30.93px/25.6px 로 적용된다. 값이 갈라지지 않도록 여기도 맞춰둔다. */
+  padding-bottom: 30.93px;
+  padding-inline: 25.6px;
 }
 
 /* ---------- 접근 모드 (더미 구현) ---------- */
@@ -585,7 +596,7 @@ body.low-stance .cart-bar {
 }
 
 #cart-total {
-  font-size: 66px;
+  font-size: 55px;
   font-weight: 500;
 }
 

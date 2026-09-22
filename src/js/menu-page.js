@@ -119,7 +119,7 @@
         </svg>
       </span>
       <span class="menu-card__name">${window.KioskState.pickText(item.name, item.nameEn)}</span>
-      <span class="menu-card__price">${item.price.toLocaleString()}</span>
+      <span class="menu-card__price">${item.price.toLocaleString()}<span class="menu-card__price-won">${window.KioskState.t("won")}</span></span>
     `;
     return el;
   }

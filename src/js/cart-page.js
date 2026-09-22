@@ -10,7 +10,7 @@
       <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
     </svg>`;
 
-  const PAGE_SIZE = 2;
+  const PAGE_SIZE = 3;
   const params = new URLSearchParams(location.search);
   const page = Math.max(0, Number(params.get("page") || 0));
 
@@ -36,7 +36,9 @@
 
   const cart = window.KioskState.getCart();
   const listEl = document.getElementById("cart-list");
-  const pagerEl = document.getElementById("cart-pager");
+  const pagerPrev = document.getElementById("cart-pager-prev");
+  const pagerNext = document.getElementById("cart-pager-next");
+  const dotsEl = document.getElementById("cart-pager-dots");
   const totalEl = document.getElementById("cart-summary-total");
   const completeBtn = document.getElementById("btn-complete");
 
@@ -45,6 +47,9 @@
   if (cart.items.length === 0) {
     listEl.innerHTML = `<p class="cart-empty">${window.KioskState.t("emptyCart")}</p>`;
     completeBtn.removeAttribute("href");
+    pagerPrev.classList.add("is-hidden");
+    pagerNext.classList.add("is-hidden");
+    dotsEl.classList.add("is-hidden");
     return;
   }
 
@@ -55,29 +60,33 @@
 
   pageItems.forEach((it) => listEl.appendChild(buildCartItemEl(it, safePage)));
 
-  if (pageCount > 1) {
-    if (safePage > 0) {
-      pagerEl.appendChild(buildPagerArrow("‹", safePage - 1));
-    }
-    const dots = document.createElement("div");
-    dots.className = "menu-pager__dots";
-    for (let i = 0; i < pageCount; i++) {
-      const dot = document.createElement("span");
-      dot.className = "menu-pager__dot" + (i === safePage ? " is-active" : "");
-      dots.appendChild(dot);
-    }
-    pagerEl.appendChild(dots);
-    if (safePage < pageCount - 1) {
-      pagerEl.appendChild(buildPagerArrow("›", safePage + 1));
-    }
+  // 메인 화면(menu.html)의 쪽넘김과 같은 배치: 화살표는 항상 보이고, 더 넘길 페이지가
+  // 없는 쪽만 is-disabled 로 흐리게 표시한다(사라지는 게 아니라 자리는 그대로 차지).
+  const hasPager = pageCount > 1;
+  pagerPrev.classList.toggle("is-hidden", !hasPager);
+  pagerNext.classList.toggle("is-hidden", !hasPager);
+  dotsEl.classList.toggle("is-hidden", !hasPager);
+  pagerPrev.classList.remove("is-disabled");
+  pagerNext.classList.remove("is-disabled");
+
+  if (safePage > 0) {
+    pagerPrev.href = `cart.html?page=${safePage - 1}`;
+  } else {
+    pagerPrev.removeAttribute("href");
+    pagerPrev.classList.add("is-disabled");
+  }
+  if (safePage < pageCount - 1) {
+    pagerNext.href = `cart.html?page=${safePage + 1}`;
+  } else {
+    pagerNext.removeAttribute("href");
+    pagerNext.classList.add("is-disabled");
   }
 
-  function buildPagerArrow(label, targetPage) {
-    const a = document.createElement("a");
-    a.className = "menu-pager__arrow";
-    a.href = `cart.html?page=${targetPage}`;
-    a.textContent = label;
-    return a;
+  dotsEl.innerHTML = "";
+  for (let i = 0; i < pageCount; i++) {
+    const dot = document.createElement("span");
+    dot.className = "menu-pager__dot" + (i === safePage ? " is-active" : "");
+    dotsEl.appendChild(dot);
   }
 
   function editHref(page, it) {

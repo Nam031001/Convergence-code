@@ -12,15 +12,18 @@
   </head>
   <body class="solo-screen">
     <div class="review-content">
+      <div class="review-panel">
       <header class="review-header">
-        <h1 class="review-header__title" id="review-title">메뉴 - 세트</h1>
+        <div class="review-header__title" id="review-title">메뉴 - 세트</div>
         <p class="review-header__price" id="review-price">0원</p>
         <!-- <button class="pill-btn pill-btn--muted" type="button" id="btn-nutrition">영양정보</button> -->
       </header>
 
+      <div class="border"></div>
+
       <div class="review-scroll">
         <div class="review-image">
-          <svg class="review-image__icon" viewBox="0 0 48 48" fill="none">
+          <img src="../../asset/맥치킨모짜렐라.png" alt="">
             <path
               d="M6 20c0-6 8-11 18-11s18 5 18 11"
               stroke="currentColor"
@@ -47,14 +50,14 @@
           </svg>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 17px">
+        <div style="display: flex; flex-direction: column; gap: 34px">
           <div class="review-lines">
             <div class="review-line">
               <div class="review-sub-title">
-                <p class="review-line__name" id="line-burger-name">버거</p>
+                <div class="review-line__name" id="line-burger-name">버거</div>
                 <p class="review-line__kcal">764 Kcal</p>
               </div>
-              <p class="review-line__mods" id="line-burger-mods" hidden></p>
+              <div class="review-line__mods" id="line-burger-mods" hidden></div>
               <a
                 class="review-line__btn"
                 id="btn-burger-ingredient"
@@ -65,8 +68,8 @@
 
             <div class="review-line">
               <div class="review-sub-title">
-                <p class="review-line__name" id="line-drink-name">음료</p>
-                <p class="review-line__kcal">764 Kcal</p>
+                <div class="review-line__name" id="line-drink-name">음료</div>
+                <div class="review-line__kcal">764 Kcal</div>
               </div>
               <a class="review-line__btn" id="btn-drink-edit" data-i18n="edit">
                 수정
@@ -76,10 +79,10 @@
 
           <div class="review-line">
             <div class="review-sub-title">
-              <p class="review-line__name" id="line-side-name">사이드</p>
+              <div class="review-line__name" id="line-side-name">사이드</div>
               <p class="review-line__kcal">764 Kcal</p>
             </div>
-            <p class="review-line__mods" id="line-side-mods" hidden></p>
+            <div class="review-line__mods" id="line-side-mods" hidden></div>
             <a
               class="review-line__btn"
               id="btn-side-ingredient"
@@ -112,8 +115,11 @@
           </button>
         </div>
       </div>
+      </div>
 
-      <footer class="step-actions">
+      <div class="border"></div>
+
+      <footer class="step-actions" style="padding: 68px 0;">
         <a class="step-actions__prev" id="btn-cancel" data-i18n="cancel">
           취소
         </a>
