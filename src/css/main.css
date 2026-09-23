@@ -65,7 +65,7 @@
   align-items: center;
   justify-content: center;
   gap: clamp(5.33px, 1vw, 9.6px);
-  min-height: clamp(197.33px, 13vw, 240px);
+  min-height: 290px;
   padding: clamp(11.73px, 2.4vw, 21.33px) clamp(5.33px, 1.2vw, 10.67px);
   border-radius: clamp(5.33px, 0.9vw, 8.53px);
   background: var(--color-dark);
@@ -88,5 +88,5 @@
 .order-btn span {
   /* font-size: clamp(20px, 2vw, 32px); */
   font-size: 66px;
-  font-weight: 700;
+  font-weight: 500;
 }

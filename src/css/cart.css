@@ -150,7 +150,7 @@ body.cart-page .bottom {
 
 .cart-item__edit {
   flex-shrink: 0;
-  padding: clamp(3.2px, 0.7vw, 5.33px) clamp(7.47px, 1.5vw, 10.67px);
+  padding: 13px 26px;
   border-radius: 532.8px;
   background: #f2b51b;
   color: #1a1a1a;
@@ -290,7 +290,8 @@ body.payment-page {
 }
 
 .order-complete__lottie {
-  width: clamp(160px, 30vw, 340px);
+  width: 250px;
+  height: 250px;
   aspect-ratio: 1;
 }
 

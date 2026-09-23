@@ -112,7 +112,7 @@ body,
   /* padding: clamp(4.27px, 0.9vw, 7.47px) clamp(8.53px, 1.8vw, 13.87px); */
   padding: 12px 24px;
   border-radius: 532.8px;
-  font-weight: 400;
+  font-weight: 500;
   /* font-size: clamp(13px, 1.1vw, 18px); */
   font-size: 34px;
 }
@@ -175,7 +175,8 @@ body,
   gap: clamp(6px, 0.8vw, 10px);
   padding: 17px 26px;
   /* padding: clamp(10px, 1.2vw, 18px); */
-  border-radius: clamp(5.33px, 1vw, 8.53px);
+  border-radius: 16px;
+  border: #D4CEB3 4px solid;
   background: var(--color-white);
   text-align: left;
 }
@@ -231,6 +232,7 @@ body,
   font-size: 45px;
   font-weight: 500;
   color: #1a1a1a;
+  letter-spacing: -2%;
 }
 
 .menu-card__price-won {
@@ -584,7 +586,7 @@ body.low-stance .cart-bar {
 
 .quick-add-modal__actions {
   display: flex;
-  gap: clamp(6.4px, 1.6vw, 10.67px);
+  gap: 34px;
   width: 100%;
   margin-top: clamp(4.27px, 1vw, 7.47px);
 }
