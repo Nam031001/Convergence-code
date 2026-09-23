@@ -21,12 +21,24 @@
   const setLabel = window.KioskState.pickText(setOpt.label, setOpt.labelEn);
   const setLLabel = window.KioskState.pickText(setLOpt.label, setLOpt.labelEn);
 
+  // 단품/세트/큰 세트는 서로 다른 "완성된 가격"이라 델타(+/-)보다 실제 가격을 보여주는 쪽이
+  // 헷갈리지 않는다. item.price 가 세트 가격인지 단품 가격인지는 카테고리마다 달라서
+  // (버거 카테고리는 단품 가격) getVariantPrice 가 그 차이를 반영해서 계산해준다.
   document.getElementById("step-title").textContent = displayName;
   document.getElementById("single-group-label").textContent = window.KioskState.t("burgerSingleTitle");
   document.getElementById("single-card-label").textContent = singleLabel;
+  document.getElementById("single-card-delta").textContent = window.KioskState.formatPrice(
+    window.KioskState.getVariantPrice(category, item.price, "single")
+  );
   document.getElementById("set-group-label").textContent = window.KioskState.t("burgerSetTitle");
   document.getElementById("set-card-label").textContent = setLabel;
+  document.getElementById("set-card-delta").textContent = window.KioskState.formatPrice(
+    window.KioskState.getVariantPrice(category, item.price, "set")
+  );
   document.getElementById("set-l-card-label").textContent = setLLabel;
+  document.getElementById("set-l-card-delta").textContent = window.KioskState.formatPrice(
+    window.KioskState.getVariantPrice(category, item.price, "set-l")
+  );
 
   const idParam = encodeURIComponent(item.id);
   document.getElementById("option-single").href = `item-added.html?itemId=${idParam}&variantId=single`;

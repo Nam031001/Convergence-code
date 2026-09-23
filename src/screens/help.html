@@ -28,7 +28,7 @@
     </div>
 
     <footer class="cancel-bar">
-      <a class="cancel-bar__btn" href="menu.html" data-i18n="backToMenu">메뉴로 돌아가기</a>
+      <a class="cancel-bar__btn" id="btn-back-to-menu" href="menu.html" data-i18n="backToMenu">메뉴로 돌아가기</a>
     </footer>
   </div>
 
@@ -37,6 +37,11 @@
   <script src="../js/kiosk-state.js"></script>
   <script>
     window.KioskState.renderCategoryNav(document.getElementById("category-nav-list"), null);
+    // "도움 기능"을 누르기 전에 있던 화면(단품/세트를 고르던 중이었다면 그 선택까지)으로
+    // 돌아간다. return 값이 없으면(=help.html 을 도움 기능 링크 없이 바로 열었을 때) 그냥
+    // 기본 메뉴로 보낸다.
+    const returnTo = new URLSearchParams(location.search).get("return");
+    if (returnTo) document.getElementById("btn-back-to-menu").href = returnTo;
   </script>
 </body>
 </html>

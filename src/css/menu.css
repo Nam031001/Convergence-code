@@ -87,9 +87,7 @@ body,
   align-items: center;
   justify-content: space-between;
   padding-inline: 25.6px;
-  /* 상품명이 길어 2줄이 되면 고정 높이를 넘쳐 위/아래 여백이 사라지므로 최소 높이로 두고 늘어나게 한다 */
   min-height: 117.33px;
-  margin-block: 13px;
   margin-inline: 12px;
 }
 
@@ -285,16 +283,16 @@ body,
 .menu-pager__dot {
   /* width: clamp(6px, 0.6vw, 10px);
   height: clamp(6px, 0.6vw, 10px); */
-  width: 10.67px;
-  height: 10.67px;
+  width: 18.13px;
+  height: 18.13px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.25);
 }
 
 .menu-pager__dot.is-active {
   background: #1a1a1a;
-  width: 18.13px;
-  height: 18.13px;
+  width: 26px;
+  height: 26px;
 }
 
 /* ---------- 하단 장바구니 바 ---------- */
@@ -348,8 +346,8 @@ body,
   /* min-height: clamp(64px, 9vh, 110px); */
   /* 버거 세트(이름+사이드+음료+재료변경) 한 항목이 잘리지 않고 다 보이는 최소 높이(약 191px) 기준.
      min > max 로 서로 충돌하지 않도록 둘 다 이 값 이상으로 맞춘다. */
-  min-height: 260px;
-  max-height: 300px;
+  min-height: 250px;
+  max-height: 270px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -406,6 +404,13 @@ body,
   color: var(--color-white);
 }
 
+.cart-preview__price {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: #f2b51b;
+}
+
 .cart-preview__option {
   margin: 0;
   font-size: 34px;
@@ -415,7 +420,9 @@ body,
 .cart-preview__qty {
   flex-shrink: 0;
   display: flex;
-  align-items: stretch;
+  /* DOM 순서는 -, 수량, + 인데 column-reverse 로 쌓으면 맨 뒤(+)가 위로,
+     맨 앞(-)이 아래로 온다. */
+  flex-direction: column-reverse;
   border: 1.07px solid var(--color-white);
   border-radius: clamp(3.2px, 0.6vw, 5.33px);
   overflow: hidden;
@@ -423,7 +430,7 @@ body,
 
 .cart-preview__qty-btn {
   /* width: clamp(14.93px, 3vw, 21.33px); */
-  width: 66px;
+  width: 102px;
   background: #3a3a3a;
   color: var(--color-white);
   font-size: 34px;
@@ -435,7 +442,7 @@ body,
 
 .cart-preview__qty-value {
   /* width: clamp(14.93px, 3vw, 21.33px); */
-  width: 66px;
+  width: 102px;
   display: flex;
   align-items: center;
   justify-content: center;

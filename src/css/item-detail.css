@@ -16,6 +16,16 @@
   opacity: 0.5;
 }
 
+/* renderStepNav 는 되돌아갈 수 있는 단계만 <a>(실제 링크)로 만들고, 아직 못 가는 단계는
+   <span>(is-disabled)으로 만든다. 지금 단계(.is-active)도 아니고 비활성도 아닌 <a> 는
+   "여길 누르면 그 단계로 돌아간다"는 뜻인데 겉보기엔 그냥 글자라 눌리는지 안 보였다.
+   밑줄을 줘서 링크라는 걸 명확히 한다. */
+a.category-nav__item--step:not(.is-active) {
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.55);
+  text-underline-offset: 6px;
+}
+
 .item-detail-sections {
   flex: 1;
   min-height: 0;
@@ -84,8 +94,24 @@
   line-height: 1.25;
 }
 
+/* 카드 자체(.option-card)의 gap(26px)을 그대로 쓰면 이름과 추가금액 사이가 너무 벌어져서
+   음수 마진으로 붙인다. 추가금액이 0원(기본 옵션)이면 JS가 hidden을 붙여 아예 숨긴다. */
+.option-card__delta {
+  margin-top: -18px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+}
+
+.option-card__delta[hidden] {
+  display: none;
+}
+
 .option-card.is-selected {
-  box-shadow: 0 0 0 1.6px var(--color-red) inset;
+  /* 1.6px 안쪽 그림자는 카드 자체의 4px 테두리(#D4CEB3)에 묻혀 거의 안 보였다.
+     테두리 자체를 굵은 빨간색으로 바꿔서 선택 상태가 확실히 드러나게 한다. */
+  border: 6px solid var(--color-red);
 }
 
 .option-pages {
@@ -165,9 +191,7 @@ body.high-contrast .item-detail-sections .option-card {
    body.solo-screen 로 세로(column) 레이아웃으로 덮어쓴다. */
 body.solo-screen {
   display: flex;
-  width: 950px;
   height: 100vh;
-  height: 100dvh;
   max-width: var(--app-max-width, 1600px);
   margin: 0 auto;
   flex-direction: column;
@@ -179,6 +203,8 @@ body.solo-screen {
   min-height: 0;
   display: flex;
   flex-direction: column;
+  width: 970px;
+  margin: auto;
 }
 
 /* .review-header 와 .review-scroll 을 감싸는 래퍼. 흰 배경은 여기 하나에만 주고,
@@ -300,6 +326,13 @@ body.solo-screen {
   margin-top: 0;
 }
 
+/* .review-line__btn 의 display:block 이 브라우저 기본 [hidden]{display:none} 보다
+   우선순위가 같아서(둘 다 클래스/속성 선택자 한 개) 나중에 온 author 스타일이 이겨버려,
+   JS로 hidden 을 줘도 안 사라지는 문제가 있었다. 명시적으로 이겨서 실제로 숨긴다. */
+.review-line__btn[hidden] {
+  display: none;
+}
+
 .review-qty {
   width: 100%;
   display: flex;
@@ -357,6 +390,12 @@ body.solo-screen {
   font-weight: 800;
   color: #1a1a1a;
   line-height: 1.4;
+}
+
+.added-toast__name {
+  font-size: 44px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .added-toast__price {

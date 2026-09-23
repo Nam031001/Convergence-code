@@ -54,8 +54,8 @@
 .order-type {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(6.4px, 1.4vw, 12.8px);
-  padding: clamp(8.53px, 1.8vw, 14.93px);
+  gap: 34px;
+  padding: 34px;
   flex-shrink: 0;
   background: var(--color-white);
 }

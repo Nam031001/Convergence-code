@@ -53,8 +53,13 @@
     { sign: "+", key: "modAdd" },
   ];
 
+  // 버거는 공용 목록, 사이드는 실제 고른 사이드(sideId)에 맞는 목록을 쓴다
+  // (예: 코울슬로엔 감자튀김용 소금/케첩/머스타드가 나오면 안 된다).
+  const ingredientOptions =
+    target === "burger" ? window.INGREDIENT_OPTIONS.burger : window.INGREDIENT_OPTIONS.side[sideId] || [];
+
   const listEl = document.getElementById("ingredient-list");
-  window.INGREDIENT_OPTIONS[target].forEach((opt) => {
+  ingredientOptions.forEach((opt) => {
     const row = document.createElement("div");
     row.className = "ingredient-row";
 

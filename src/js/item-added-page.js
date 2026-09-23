@@ -15,8 +15,10 @@
   }
 
   const { item, category } = found;
-  const variant = window.VARIANT_OPTIONS[params.get("variantId")];
-  const side = window.SIDE_OPTIONS[params.get("sideId")];
+  const variantId = params.get("variantId");
+  const variant = window.VARIANT_OPTIONS[variantId];
+  const sideId = params.get("sideId");
+  const side = window.SIDE_OPTIONS[sideId];
   const drink = window.DRINK_OPTIONS[params.get("drinkId")];
   const quantity = Math.max(1, Number(params.get("qty") || 1));
   const cartItemId = params.get("cartItemId");
@@ -24,13 +26,16 @@
   const burgerMods = params.get("burgerMods") || "";
   const sideMods = params.get("sideMods") || "";
 
+  // 단품/세트/큰세트를 거쳐 왔으면(variant 있음) getVariantPrice 로 카테고리별 기준을
+  // 반영해서 계산하고(item-variant-page.js 와 동일 로직), 변형 없이 바로 담긴 경우
+  // (카테고리에서 바로 담기)는 item.price 를 그대로 쓴다.
+  const basePrice = variant ? window.KioskState.getVariantPrice(category, item.price, variantId) : item.price;
   const unitPrice =
-    item.price +
-    (variant ? variant.priceDelta : 0) +
+    basePrice +
     (side ? side.priceDelta : 0) +
     (drink ? drink.priceDelta : 0) +
     window.KioskState.modsPrice("burger", burgerMods) +
-    window.KioskState.modsPrice("side", sideMods);
+    window.KioskState.modsPrice("side", sideMods, sideId);
 
   // 수정하기 링크를 다시 만들려면 표시용 이름뿐 아니라 id 값도 같이 들고 있어야 한다.
   // 언어는 index.html 에서 한 번 고르면 세션 내내 안 바뀌므로, 지금 언어로 고른 표시 문구를 그대로 저장해둔다.
@@ -40,7 +45,7 @@
     badge: item.badge || null,
     variantId: params.get("variantId") || null,
     variantLabel: variant ? window.KioskState.pickText(variant.label, variant.labelEn) : null,
-    sideId: params.get("sideId") || null,
+    sideId: sideId || null,
     sideLabel: side ? window.KioskState.pickText(side.label, side.labelEn) : null,
     drinkId: params.get("drinkId") || null,
     drinkLabel: drink ? window.KioskState.pickText(drink.label, drink.labelEn) : null,
@@ -48,7 +53,7 @@
     burgerMods,
     sideMods,
     burgerModLabels: window.KioskState.modLabels("burger", burgerMods),
-    sideModLabels: window.KioskState.modLabels("side", sideMods),
+    sideModLabels: window.KioskState.modLabels("side", sideMods, sideId),
     unitPrice,
     qty: quantity,
   };
@@ -62,6 +67,11 @@
   document.querySelector(".added-toast__title").innerHTML = window.KioskState.t(
     cartItemId ? "addedTitleEdit" : "addedTitleNew"
   );
+  // 이름만으론 몇 개인지, 세트인지 단품인지 알 수 없어서 옵션 라벨/수량까지 같이 보여준다.
+  document.getElementById("added-name").textContent =
+    cartItem.name +
+    (cartItem.variantLabel ? ` - ${cartItem.variantLabel}` : "") +
+    (quantity > 1 ? ` × ${quantity}` : "");
 
   // 잠시 보여준 뒤, 수정이었으면 장바구니로, 새로 담은 거였으면 원래 보던 카테고리로 돌아간다.
   setTimeout(() => {

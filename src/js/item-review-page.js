@@ -20,7 +20,7 @@
     return;
   }
 
-  const { item } = found;
+  const { item, category } = found;
   const isEn = window.KioskState.getLang() === "en";
   const displayName = window.KioskState.pickText(item.name, item.nameEn);
   const baseName = isEn ? displayName.replace(/\s*Set$/i, "") : displayName.replace(/\s*세트$/, "");
@@ -29,13 +29,15 @@
   const drinkLabel = window.KioskState.pickText(drink.label, drink.labelEn);
   const burgerMods = params.get("burgerMods") || "";
   const sideMods = params.get("sideMods") || "";
+  // 단품/세트/큰세트 가격은 getVariantPrice 로 계산(카테고리마다 item.price 의 기준이
+  // 다름 — item-variant-page.js 와 동일 로직). 사이드/음료/재료변경은 항상 순수 추가금이라
+  // 그대로 더한다.
   const unitPrice =
-    item.price +
-    variant.priceDelta +
+    window.KioskState.getVariantPrice(category, item.price, variantId) +
     side.priceDelta +
     drink.priceDelta +
     window.KioskState.modsPrice("burger", burgerMods) +
-    window.KioskState.modsPrice("side", sideMods);
+    window.KioskState.modsPrice("side", sideMods, sideId);
 
   document.getElementById("review-title").textContent = `${baseName} - ${variantLabel}`;
   document.getElementById("line-burger-name").textContent = baseName;
@@ -53,7 +55,7 @@
 
   // 재료 변경 요약(선택한 게 있을 때만 보임)
   [["burger", burgerMods], ["side", sideMods]].forEach(([kind, value]) => {
-    const labels = window.KioskState.modLabels(kind, value);
+    const labels = window.KioskState.modLabels(kind, value, sideId);
     const el = document.getElementById(`line-${kind}-mods`);
     el.textContent = labels.join(", ");
     el.hidden = labels.length === 0;
@@ -87,6 +89,12 @@
       `item-ingredient.html?${currentSelection()}&target=side${tail}`;
   }
   updateDisplay();
+
+  // 코울슬로처럼 바꿀 수 있는 재료가 아예 없는 사이드는 "재료추가/변경" 버튼 자체를 숨긴다
+  // (누르면 빈 화면이 뜨는 것보다 낫다).
+  if (!(window.INGREDIENT_OPTIONS.side[sideId] || []).length) {
+    document.getElementById("btn-side-ingredient").hidden = true;
+  }
 
   document.getElementById("qty-minus").addEventListener("click", () => {
     if (quantity > 1) quantity -= 1;

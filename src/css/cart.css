@@ -63,19 +63,16 @@ body.cart-page .bottom {
 
 .cart-item {
   display: flex;
-  align-items: flex-start; /* 기본값(stretch)이면 썸네일이 카드 높이(내용량에 따라 달라짐)만큼
-    늘어나고, aspect-ratio:1 때문에 그 늘어난 높이로 폭까지 커져서 카드마다 썸네일 크기가
-    제각각이 됐다. flex-start로 늘어남을 막으면 썸네일 폭(clamp)만으로 정사각형 크기가
-    정해져서 내용량과 무관하게 모든 카드가 같은 크기가 된다. */
+  align-items: center; 
   gap: 34px;
   border-bottom: 0.53px solid #eee;
-  padding: 34px 34px ;
+  padding: 34px;
   background: var(--color-white);
 }
 
 .cart-item__thumb {
   position: relative;
-  flex: 0 0 350px;
+  flex: 0 0 300px;
   aspect-ratio: 1;
   border-radius: clamp(4.27px, 0.8vw, 6.4px);
   background: #eee;
@@ -90,7 +87,7 @@ body.cart-page .bottom {
   color: #b9b9b9;
 }
 
-.cart-item__badge {
+/* .cart-item__badge {
   position: absolute;
   top: 3.2px;
   left: 3.2px;
@@ -100,7 +97,7 @@ body.cart-page .bottom {
   color: var(--color-white);
   font-size: 34px;
   font-weight: 700;
-}
+} */
 
 .cart-item__body {
   flex: 1;

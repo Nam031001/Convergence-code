@@ -31,7 +31,7 @@
             id="lang-toggle">
             ENG
           </button> -->
-          <a class="pill-btn pill-btn--solid" id="btn-home" href="../../index.html" data-i18n="home">
+          <a class="pill-btn pill-btn--solid" id="btn-home" data-home href="../../index.html" data-i18n="home">
             처음으로
           </a>
         </div>
@@ -109,6 +109,19 @@
         <div class="quick-add-modal__actions">
           <button class="step-actions__prev" type="button" id="confirm-remove-cancel" data-i18n="cancel">취소</button>
           <button class="step-actions__confirm" type="button" id="confirm-remove-ok" data-i18n="confirm">확인</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- "처음으로"를 누르면 뜨는 확인 팝업(장바구니가 비어있으면 안 뜨고 바로 이동) -->
+    <div class="quick-add-modal" id="confirm-home-modal" hidden>
+      <div class="quick-add-modal__card">
+        <p class="quick-add-modal__name" id="confirm-home-message" data-i18n-html="confirmHome">
+          처음 화면으로 돌아가시겠습니까?<br />담긴 메뉴가 모두 삭제됩니다.
+        </p>
+        <div class="quick-add-modal__actions">
+          <button class="step-actions__prev" type="button" id="confirm-home-cancel" data-i18n="cancel">취소</button>
+          <button class="step-actions__confirm" type="button" id="confirm-home-ok" data-i18n="confirm">확인</button>
         </div>
       </div>
     </div>

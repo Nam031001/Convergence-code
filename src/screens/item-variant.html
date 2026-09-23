@@ -20,6 +20,7 @@
       <h1 class="menu-header__title" id="step-title">메뉴</h1>
       <div class="menu-header__actions">
         <!-- <button class="pill-btn pill-btn--muted" type="button" id="btn-nutrition">영양정보</button> -->
+        <a class="pill-btn pill-btn--solid" data-home data-i18n="home">처음으로</a>
       </div>
     </header>
 
@@ -37,6 +38,7 @@
               </svg>
             </span>
             <span class="option-card__label" id="single-card-label">단품</span>
+            <span class="option-card__delta" id="single-card-delta"></span>
           </a>
         </div>
       </div>
@@ -54,6 +56,7 @@
               </svg>
             </span>
             <span class="option-card__label" id="set-card-label">세트</span>
+            <span class="option-card__delta" id="set-card-delta"></span>
           </a>
           <a class="option-card" id="option-set-l">
             <span class="option-card__thumb" aria-hidden="true">
@@ -65,15 +68,28 @@
               </svg>
             </span>
             <span class="option-card__label" id="set-l-card-label">큰 세트(L)</span>
+            <span class="option-card__delta" id="set-l-card-delta"></span>
           </a>
         </div>
       </div>
     </div>
 
     <footer class="step-actions">
-      <a class="step-actions__prev" data-home data-i18n="home">처음으로</a>
-      <a class="step-actions__confirm" id="btn-cancel-detail" data-i18n="cancel">취소</a>
+      <a class="step-actions__prev" id="btn-cancel-detail" data-i18n="cancel">취소</a>
     </footer>
+  </div>
+
+  <!-- "처음으로"를 누르면 뜨는 확인 팝업(장바구니가 비어있으면 안 뜨고 바로 이동) -->
+  <div class="quick-add-modal" id="confirm-home-modal" hidden>
+    <div class="quick-add-modal__card">
+      <p class="quick-add-modal__name" id="confirm-home-message" data-i18n-html="confirmHome">
+        처음 화면으로 돌아가시겠습니까?<br />담긴 메뉴가 모두 삭제됩니다.
+      </p>
+      <div class="quick-add-modal__actions">
+        <button class="step-actions__prev" type="button" id="confirm-home-cancel" data-i18n="cancel">취소</button>
+        <button class="step-actions__confirm" type="button" id="confirm-home-ok" data-i18n="confirm">확인</button>
+      </div>
+    </div>
   </div>
 
   <script src="../js/kiosk-guard.js"></script>

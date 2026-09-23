@@ -34,6 +34,15 @@
     ? "cart.html"
     : `menu.html?category=${encodeURIComponent(category.id)}`;
 
+  // 이전: 단품/세트 선택으로 돌아간다. 그 선택 자체가 없는 상품(추천메뉴/웰런치,
+  // category.fixedVariant)은 이 화면이 첫 단계라 이전 버튼 자체를 감춘다.
+  const btnPrev = document.getElementById("btn-prev");
+  if (category.fixedVariant) {
+    btnPrev.hidden = true;
+  } else {
+    btnPrev.href = `item-variant.html?itemId=${idParam}${carry}`;
+  }
+
   // 사이드 카드를 누르는 것 자체가 선택 완료다: 카드는 다음 화면으로 가는 링크(a)다.
   // (최종 확인에서 "수정"으로 왔으면 음료 선택을 건너뛰고 최종 확인으로 돌아간다.)
   function hrefFor(card) {
@@ -63,6 +72,9 @@
         option.label,
         option.labelEn
       );
+      const deltaEl = card.querySelector(".option-card__delta");
+      deltaEl.textContent = window.KioskState.formatDelta(option.priceDelta);
+      deltaEl.hidden = !option.priceDelta;
     }
     card.href = hrefFor(card);
     // 이미 고른 사이드가 있으면(수정) 표시만 해 둔다.
@@ -77,5 +89,6 @@
     itemId: item.id,
     variantId,
     cartItemId,
+    variantLocked: !!category.fixedVariant,
   });
 })();

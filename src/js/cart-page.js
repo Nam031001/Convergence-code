@@ -10,7 +10,6 @@
       <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
     </svg>`;
 
-  const PAGE_SIZE = 3;
   const params = new URLSearchParams(location.search);
   const page = Math.max(0, Number(params.get("page") || 0));
 
@@ -53,11 +52,37 @@
     return;
   }
 
-  const pageCount = Math.max(1, Math.ceil(cart.items.length / PAGE_SIZE));
-  const safePage = Math.min(page, pageCount - 1);
-  const start = safePage * PAGE_SIZE;
-  const pageItems = cart.items.slice(start, start + PAGE_SIZE);
+  // 한 페이지에 몇 장이 들어가는지 고정된 개수로 정하지 않는다. 카드 높이가 재료 변경/
+  // 사이드/음료 유무·이름 길이에 따라 다 달라서, 실제로 넣어보고 넘치면 그 카드부터
+  // 다음 페이지로 넘긴다.
+  function fitCount(startIndex) {
+    listEl.innerHTML = "";
+    let count = 0;
+    for (let i = startIndex; i < cart.items.length; i++) {
+      const el = buildCartItemEl(cart.items[i], 0); // 페이지 번호는 나중에 실제 렌더할 때 다시 채운다.
+      listEl.appendChild(el);
+      if (count > 0 && listEl.scrollHeight > listEl.clientHeight) {
+        listEl.removeChild(el);
+        break;
+      }
+      count++;
+    }
+    return count;
+  }
 
+  const pageBoundaries = [];
+  for (let s = 0; s < cart.items.length; ) {
+    const count = fitCount(s) || 1; // 카드 한 장이 그 자체로 넘쳐도 최소 1장은 보여준다(무한루프 방지).
+    pageBoundaries.push({ start: s, count });
+    s += count;
+  }
+
+  const pageCount = pageBoundaries.length;
+  const safePage = Math.min(page, pageCount - 1);
+  const { start, count: fitted } = pageBoundaries[safePage];
+  const pageItems = cart.items.slice(start, start + fitted);
+
+  listEl.innerHTML = "";
   pageItems.forEach((it) => listEl.appendChild(buildCartItemEl(it, safePage)));
 
   // 메인 화면(menu.html)의 쪽넘김과 같은 배치: 화살표는 항상 보이고, 더 넘길 페이지가
@@ -99,11 +124,14 @@
     pendingRemoveId = null;
   }
 
+  const confirmMessageEl = document.getElementById("confirm-remove-message");
+
   listEl.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-remove-id]");
     if (!btn) return;
     pendingRemoveId = btn.dataset.removeId;
     pendingRemovePage = btn.dataset.removePage;
+    confirmMessageEl.innerHTML = window.KioskState.confirmRemoveMessage(btn.dataset.removeName);
     confirmModal.hidden = false;
   });
 
@@ -170,7 +198,7 @@
       <div class="cart-item__body">
         <div class="cart-item__top">
           <p class="cart-item__name">${it.name}</p>
-          <a class="cart-item__remove" href="cart.html?remove=${encodeURIComponent(it.id)}&page=${currentPage}">${window.KioskState.t("remove")}</a>
+          <button class="cart-item__remove" type="button" data-remove-id="${encodeURIComponent(it.id)}" data-remove-page="${currentPage}" data-remove-name="${it.name}">${window.KioskState.t("remove")}</button>
         </div>
         ${optionRows.join("")}
         <div class="cart-item__footer">
@@ -179,7 +207,7 @@
             ${
               it.qty > 1
                 ? `<a class="cart-item__qty-btn" href="cart.html?dec=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}">−</a>`
-                : `<button class="cart-item__qty-btn" type="button" data-remove-id="${encodeURIComponent(it.id)}" data-remove-page="${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}">−</button>`
+                : `<button class="cart-item__qty-btn" type="button" data-remove-id="${encodeURIComponent(it.id)}" data-remove-page="${currentPage}" data-remove-name="${it.name}" aria-label="${window.KioskState.t("qtyMinus")}">−</button>`
             }
             <span class="cart-item__qty-value">${it.qty}</span>
             <a class="cart-item__qty-btn" href="cart.html?inc=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyPlus")}">+</a>

@@ -5,6 +5,10 @@ window.MENU_CATEGORIES = [
     id: "recommend",
     label: "추천메뉴",
     labelEn: "Recommended",
+    // 이름/가격이 전부 "~세트" 기준으로 이미 확정돼있는 카테고리라 단품/세트를 다시 고르게
+    // 하면 모순(세트라고 눌렀는데 단품을 고를 수 있음)이 생긴다. 그래서 단품/세트 선택
+    // 화면을 건너뛰고 이 값으로 바로 사이드 선택으로 간다(menu-page.js buildCard 참고).
+    fixedVariant: "set",
     items: [
       { id: "r1", name: "진주 고추 크림치즈 비프 버거 세트", nameEn: "Jinju Chili Cream Cheese Beef Burger Set", price: 6800 },
       { id: "r2", name: "더블 맥스파이시 상하이 버거 세트", nameEn: "Double McSpicy Shanghai Burger Set", price: 6800 },
@@ -30,6 +34,7 @@ window.MENU_CATEGORIES = [
     id: "welunch",
     label: "웰런치",
     labelEn: "WeLunch",
+    fixedVariant: "set", // recommend 와 동일한 이유(이름/가격이 이미 "~세트" 기준)
     items: [
       { id: "w1", name: "웰런치 불고기 버거 세트", nameEn: "WeLunch Bulgogi Burger Set", price: 5900 },
       { id: "w2", name: "웰런치 치즈버거 세트", nameEn: "WeLunch Cheeseburger Set", price: 5500 },
@@ -41,6 +46,10 @@ window.MENU_CATEGORIES = [
     id: "burger",
     label: "버거",
     labelEn: "Burgers",
+    // 이 카테고리는 이름에 "세트"가 안 붙어있는 것에서 알 수 있듯 price 가 이미 단품 가격이다
+    // (추천메뉴/웰런치는 반대로 이름이 "~세트"라 price 가 세트 가격). 단품/세트/큰세트 화면에서
+    // 가격을 계산할 때 이 차이를 반영해야 한다 (KioskState.getVariantPrice 참고).
+    priceBase: "single",
     items: [
       { id: "b1", name: "빅맥", nameEn: "Big Mac", price: 5500 },
       { id: "b2", name: "상하이 버거", nameEn: "Shanghai Burger", price: 5200 },
@@ -139,17 +148,29 @@ window.DRINK_OPTIONS = {
 // 최종 확인 화면의 "재료추가/변경"에서 고르는 재료. 각 재료는 기본 / 빼기(-) / 추가(+) 중 하나.
 // addPrice: "추가"를 골랐을 때 붙는 금액(더미).
 window.INGREDIENT_OPTIONS = {
+  // 버거는 어떤 메뉴든 재료 구성이 크게 다르지 않아 공용 목록 하나로 두되, "소스"는 어떤
+  // 소스인지 알 수 없다는 지적이 있어 실제로 존재하는 이름으로 바꿨다.
   burger: [
     { id: "lettuce", label: "양상추", labelEn: "Lettuce", addPrice: 300 },
     { id: "tomato", label: "토마토", labelEn: "Tomato", addPrice: 300 },
     { id: "onion", label: "양파", labelEn: "Onion", addPrice: 0 },
     { id: "pickle", label: "피클", labelEn: "Pickle", addPrice: 0 },
     { id: "cheese", label: "치즈", labelEn: "Cheese", addPrice: 500 },
-    { id: "sauce", label: "소스", labelEn: "Sauce", addPrice: 0 },
+    { id: "sauce", label: "스페셜 소스", labelEn: "Special Sauce", addPrice: 0 },
   ],
-  side: [
-    { id: "salt", label: "소금", labelEn: "Salt", addPrice: 0 },
-    { id: "ketchup", label: "케첩", labelEn: "Ketchup", addPrice: 0 },
-    { id: "mustard", label: "머스타드 소스", labelEn: "Mustard Sauce", addPrice: 300 },
-  ],
+  // 사이드는 감자튀김류(소금/케첩/머스타드)와 코울슬로(곁들일 게 없음)가 서로 다른 음식이라
+  // SIDE_OPTIONS 의 id 별로 따로 둔다(item-ingredient-page.js 가 sideId 로 골라 쓴다).
+  side: {
+    fries: [
+      { id: "salt", label: "소금", labelEn: "Salt", addPrice: 0 },
+      { id: "ketchup", label: "케첩", labelEn: "Ketchup", addPrice: 0 },
+      { id: "mustard", label: "머스타드 소스", labelEn: "Mustard Sauce", addPrice: 300 },
+    ],
+    "fries-l": [
+      { id: "salt", label: "소금", labelEn: "Salt", addPrice: 0 },
+      { id: "ketchup", label: "케첩", labelEn: "Ketchup", addPrice: 0 },
+      { id: "mustard", label: "머스타드 소스", labelEn: "Mustard Sauce", addPrice: 300 },
+    ],
+    coleslaw: [], // 완제품 샐러드라 추가/변경할 재료가 없음 — item-review-page.js 가 이 경우 버튼 자체를 숨긴다.
+  },
 };

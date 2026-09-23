@@ -33,6 +33,13 @@
     ? "cart.html"
     : `menu.html?category=${encodeURIComponent(category.id)}`;
 
+  // 이전: 사이드 선택으로 돌아간다. 지금 고른 음료도 같이 들고 가서, 사이드만 바꾸고
+  // 다시 넘어오면 음료 선택이 그대로 남아있게 한다.
+  document.getElementById("btn-prev").href =
+    `item-side.html?itemId=${idParam}&variantId=${variantParam}&sideId=${sideParam}` +
+    (currentDrinkId ? `&drinkId=${encodeURIComponent(currentDrinkId)}` : "") +
+    carry;
+
   // 음료 카드를 누르는 것 자체가 선택 완료다: 카드는 최종 확인 화면으로 가는 링크(a)다.
   document.querySelectorAll(".option-page .option-card").forEach((card) => {
     const option = window.DRINK_OPTIONS[card.dataset.id];
@@ -41,6 +48,9 @@
         option.label,
         option.labelEn
       );
+      const deltaEl = card.querySelector(".option-card__delta");
+      deltaEl.textContent = window.KioskState.formatDelta(option.priceDelta);
+      deltaEl.hidden = !option.priceDelta;
     }
     card.href =
       `item-review.html?itemId=${idParam}&variantId=${variantParam}&sideId=${sideParam}` +
@@ -89,5 +99,6 @@
     variantId,
     sideId,
     cartItemId,
+    variantLocked: !!category.fixedVariant,
   });
 })();

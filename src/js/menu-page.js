@@ -29,8 +29,9 @@
   const confirmRemoveModal = document.getElementById("confirm-remove-modal");
   let pendingRemoveItemId = null;
 
-  function openConfirmRemove(itemId) {
+  function openConfirmRemove(itemId, name) {
     pendingRemoveItemId = itemId;
+    document.getElementById("confirm-remove-message").innerHTML = window.KioskState.confirmRemoveMessage(name);
     confirmRemoveModal.hidden = false;
   }
 
@@ -92,6 +93,7 @@
       row.innerHTML = `
         <div class="cart-preview__info">
           <p class="cart-preview__name">${it.name}</p>
+          <p class="cart-preview__price">${window.KioskState.formatPrice(it.unitPrice * it.qty)}</p>
           ${optionLines.map((label) => `<p class="cart-preview__option">${label}</p>`).join("")}
         </div>
         <div class="cart-preview__qty">
@@ -107,7 +109,7 @@
           window.KioskState.updateCartItemQty(it.id, -1);
           renderCartPreview();
         } else {
-          openConfirmRemove(it.id);
+          openConfirmRemove(it.id, it.name);
         }
       });
       plusBtn.addEventListener("click", () => {
@@ -133,7 +135,11 @@
     const el = document.createElement(isDetail ? "a" : "button");
     el.className = "menu-card";
     if (isDetail) {
-      el.href = `item-variant.html?itemId=${encodeURIComponent(item.id)}`;
+      // 추천메뉴/웰런치는 이름/가격이 이미 "~세트" 기준이라 단품/세트를 다시 고르게 하면
+      // 모순이 생긴다(category.fixedVariant 참고) — 그 값으로 바로 사이드 선택부터 시작한다.
+      el.href = category.fixedVariant
+        ? `item-side.html?itemId=${encodeURIComponent(item.id)}&variantId=${encodeURIComponent(category.fixedVariant)}`
+        : `item-variant.html?itemId=${encodeURIComponent(item.id)}`;
     } else {
       el.type = "button";
       el.addEventListener("click", () => openQuickAddModal(item));
@@ -252,9 +258,6 @@
     });
   }
 
-  // 처음으로 돌아가면 새 손님의 새 주문이 시작되는 것이므로 담겨있던 장바구니를 비운다.
-  // 실제 이동(href)은 그대로 두고, 이동 직전에 정리만 해준다.
-  document.getElementById("btn-home")?.addEventListener("click", () => {
-    window.KioskState.clearCart();
-  });
+  // "처음으로" 버튼(id="btn-home")은 data-home 속성이 붙어있어서 장바구니 비우기/확인 팝업은
+  // kiosk-state.js 의 wireHomeButtons() 가 공통으로 처리한다(여기서 따로 안 건드림).
 })();

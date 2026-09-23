@@ -41,6 +41,10 @@ window.KioskState = (function () {
     dineIn: { ko: "매장", en: "Dine In" },
     takeout: { ko: "포장", en: "Takeout" },
     home: { ko: "처음으로", en: "Home" },
+    confirmHome: {
+      ko: "처음 화면으로 돌아가시겠습니까?<br>담긴 메뉴가 모두 삭제됩니다.",
+      en: "Go back to the start screen?<br>Everything in your cart will be cleared.",
+    },
     orderNow: { ko: "주문하기", en: "Order Now" },
     won: { ko: "원", en: "won" },
     nutrition: { ko: "영양정보", en: "Nutrition Info" },
@@ -64,7 +68,8 @@ window.KioskState = (function () {
     lowStanceSoon: { ko: "낮은 자세 기능은 아직 준비중입니다.", en: "Low stance mode is coming soon." },
     orderSummaryTitle: { ko: "주문 확인", en: "Order Summary" },
     totalLabel: { ko: "합계", en: "Total" },
-    orderCompleteBtn: { ko: "주문완료", en: "Complete Order" },
+    orderCompleteBtn: { ko: "결제하기", en: "Pay" }, // 실제로는 결제 화면(payment.html)으로 넘어가는 버튼이라 "주문완료"는 부정확했다.
+    addMoreBtn: { ko: "메뉴 추가", en: "Add More" }, // cart.html 전용. 실제로는 menu.html 로 돌아가는 버튼이라 공용 "cancel" 대신 따로 둔다.
     helpTitle: { ko: "도움 기능", en: "Help" },
     helpQuestion: { ko: "도움이 필요하신가요?", en: "Need help?" },
     helpDescLine1: { ko: "화면 앞에서 잠시만 기다려주세요.", en: "Please wait in front of the screen for a moment." },
@@ -105,6 +110,40 @@ window.KioskState = (function () {
   // 화면마다 다른 "숫자원" 조합을 한곳에서 통일한다(영어는 숫자와 word 사이 띄어쓰기가 필요).
   function formatPrice(amount) {
     return `${amount.toLocaleString()}${getLang() === "en" ? " " : ""}${t("won")}`;
+  }
+
+  // 삭제 확인 팝업에 "어떤 메뉴"를 지우는지 이름을 넣어준다. 한국어는 을/를 받침 여부를
+  // 매번 맞추기보다 이름을 줄 바꿔 따로 보여주는 쪽이 실수가 없다.
+  function confirmRemoveMessage(name) {
+    return getLang() === "en" ? `Remove "${name}"?` : `${name}<br>${t("confirmRemove")}`;
+  }
+
+  // 단품/세트/사이드/음료 카드에 붙는 추가 금액 표시. 0원이면 아무것도 안 보여준다
+  // (기본값이라 굳이 "+0원"을 보여줄 필요가 없음). 양수는 +, 음수는 toLocaleString이
+  // 알아서 붙이는 - 를 그대로 쓴다.
+  function formatDelta(amount) {
+    if (!amount) return "";
+    const sign = amount > 0 ? "+" : "";
+    return `${sign}${amount.toLocaleString()}${getLang() === "en" ? " " : ""}${t("won")}`;
+  }
+
+  // 단품/세트/큰세트 최종 가격. item.price 의 의미가 카테고리마다 다르다 —
+  // 추천메뉴/웰런치는 이름이 "~세트"라 price 가 세트 가격이고, 버거처럼
+  // category.priceBase === "single" 인 곳은 이름에 "세트"가 없는 만큼 price 가 단품 가격이다.
+  // 그 차이를 여기 한 곳에서만 반영해서, 화면마다 직접 item.price + delta 를 계산하다가
+  // 카테고리별 기준이 다르다는 걸 놓치는 실수(단품을 더 깎아버리는 등)를 막는다.
+  function getVariantPrice(category, basePrice, variantId) {
+    const opt = window.VARIANT_OPTIONS[variantId];
+    if (!opt) return basePrice;
+    if (category && category.priceBase === "single") {
+      const comboPremium = -window.VARIANT_OPTIONS.single.priceDelta; // 단품→세트로 갈 때 붙는 사이드+음료 값
+      const setLExtra = window.VARIANT_OPTIONS["set-l"].priceDelta; // 세트 대비 큰세트 추가금
+      if (variantId === "single") return basePrice;
+      if (variantId === "set") return basePrice + comboPremium;
+      if (variantId === "set-l") return basePrice + comboPremium + setLExtra;
+      return basePrice;
+    }
+    return basePrice + opt.priceDelta;
   }
 
   // 마크업에 박힌 고정 문구는 data-i18n(텍스트)/data-i18n-html(줄바꿈 등 포함)/
@@ -262,7 +301,16 @@ window.KioskState = (function () {
         const a = document.createElement("a");
         a.className = "category-nav__item category-nav__item--utility";
         a.textContent = pickText(util.label, util.labelEn);
-        a.href = "help.html";
+        // 지금 보던 화면(단품/세트 고르던 중이었다면 그 선택까지 포함한 URL)을 같이 들고 가서,
+        // help.html 의 "메뉴로 돌아가기"가 늘 menu.html 첫 화면이 아니라 원래 있던 자리로
+        // 돌아가게 한다. index.html/help.html 자체에서 도움 기능을 눌렀을 땐 돌아갈 "진행 중인
+        // 선택"이 없으므로 return 없이 그냥 help.html 로 보낸다.
+        const here = location.pathname.split("/").pop();
+        if (here && here !== "help.html") {
+          a.href = `help.html?return=${encodeURIComponent(here + location.search)}`;
+        } else {
+          a.href = "help.html";
+        }
         utilityContainer.appendChild(a);
         return;
       }
@@ -309,7 +357,9 @@ window.KioskState = (function () {
   function stepHref(stepId, ctx) {
     const itemId = encodeURIComponent(ctx.itemId);
     const editSuffix = ctx.cartItemId ? `&cartItemId=${encodeURIComponent(ctx.cartItemId)}` : "";
-    if (stepId === "variant") return `item-variant.html?itemId=${itemId}`;
+    // 추천메뉴/웰런치처럼 단품/세트 선택 자체를 건너뛰는 상품은 이 단계로 못 돌아가게
+    // 막는다(사이드바에서 다시 눌러서 "세트"였던 걸 "단품"으로 바꿔버리는 걸 방지).
+    if (stepId === "variant") return ctx.variantLocked ? null : `item-variant.html?itemId=${itemId}`;
     if (stepId === "side") {
       if (!ctx.variantId) return null;
       return `item-side.html?itemId=${itemId}&variantId=${encodeURIComponent(ctx.variantId)}${editSuffix}`;
@@ -373,10 +423,18 @@ window.KioskState = (function () {
   }
 
   // 화면에 보여줄 문구 목록. 예) ["양상추 빼기", "치즈 추가"]
-  function modLabels(kind, str) {
+  // kind: "burger"(공용 목록) | "side"(sideId별로 목록이 다름 — 코울슬로엔 감자튀김용
+  // 소금/케첩/머스타드가 안 맞아서 SIDE_OPTIONS 의 id 별로 따로 둔다. kind가 "side"면
+  // sideId 가 있어야 목록을 찾을 수 있다).
+  function ingredientOptionsFor(kind, sideId) {
+    if (kind === "burger") return window.INGREDIENT_OPTIONS.burger;
+    return window.INGREDIENT_OPTIONS.side[sideId] || [];
+  }
+
+  function modLabels(kind, str, sideId) {
     const mods = parseMods(str);
     const isEn = getLang() === "en";
-    return window.INGREDIENT_OPTIONS[kind]
+    return ingredientOptionsFor(kind, sideId)
       .filter((opt) => mods[opt.id])
       .map((opt) => {
         const name = pickText(opt.label, opt.labelEn);
@@ -385,9 +443,9 @@ window.KioskState = (function () {
       });
   }
 
-  function modsPrice(kind, str) {
+  function modsPrice(kind, str, sideId) {
     const mods = parseMods(str);
-    return window.INGREDIENT_OPTIONS[kind].reduce(
+    return ingredientOptionsFor(kind, sideId).reduce(
       (sum, opt) => sum + (mods[opt.id] === "+" ? opt.addPrice : 0),
       0
     );
@@ -402,12 +460,47 @@ window.KioskState = (function () {
   }
 
   // data-home 이 붙은 "처음으로" 버튼: 첫 화면(index.html)으로 이동하고, 담아둔 장바구니는 비운다.
+  // 장바구니에 뭔가 담겨있으면(잃을 게 있으면) 바로 비우지 않고 확인 팝업(#confirm-home-modal,
+  // 이 화면에 마크업이 있는 경우)을 한 번 거친다. 헤더에 붙은 버튼처럼 잘못 누르기 쉬운
+  // 자리에서 확인 없이 장바구니가 통째로 비는 걸 막기 위함. 장바구니가 비어있으면(잃을 게
+  // 없으면) 그냥 바로 이동한다.
   function wireHomeButtons() {
     const depth = location.pathname.includes("/src/screens/") ? "../../" : "";
-    document.querySelectorAll("[data-home]").forEach((el) => {
-      el.href = `${depth}index.html`;
-      el.addEventListener("click", clearCart);
+    const homeEls = document.querySelectorAll("[data-home]");
+    if (!homeEls.length) return;
+    const target = `${depth}index.html`;
+    homeEls.forEach((el) => {
+      el.href = target;
     });
+
+    const modal = document.getElementById("confirm-home-modal");
+    if (!modal) {
+      // 이 화면에 확인 팝업 마크업이 없으면(예외 대비) 예전처럼 바로 비우고 이동한다.
+      homeEls.forEach((el) => el.addEventListener("click", clearCart));
+      return;
+    }
+
+    function goHome() {
+      clearCart();
+      location.href = target;
+    }
+    function closeModal() {
+      modal.hidden = true;
+    }
+
+    homeEls.forEach((el) => {
+      el.addEventListener("click", (e) => {
+        if (getCart().count === 0) return; // 빈 장바구니면 확인 없이 바로 이동
+        e.preventDefault();
+        modal.hidden = false;
+      });
+    });
+    document.getElementById("confirm-home-cancel")?.addEventListener("click", closeModal);
+    // 팝업 카드 바깥(어두운 배경)을 눌러도 취소와 같이 닫는다.
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.getElementById("confirm-home-ok")?.addEventListener("click", goHome);
   }
 
   // ---------- 무입력 자동 복귀 ----------
@@ -443,6 +536,9 @@ window.KioskState = (function () {
     pickText,
     t,
     formatPrice,
+    formatDelta,
+    getVariantPrice,
+    confirmRemoveMessage,
     applyStaticI18n,
     startIdleReturn,
     wireHomeButtons,
