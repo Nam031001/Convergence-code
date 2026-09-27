@@ -85,15 +85,17 @@
     document.getElementById("btn-drink-edit").href = `item-drink.html?${currentSelection()}&from=review${tail}`;
     document.getElementById("btn-burger-ingredient").href =
       `item-ingredient.html?${currentSelection()}&target=burger${tail}`;
-    document.getElementById("btn-side-ingredient").href =
-      `item-ingredient.html?${currentSelection()}&target=side${tail}`;
+    // 사이드 재료추가/변경 버튼은 HTML에서 주석 처리돼 없을 수 있다.
+    const sideIngredientBtn = document.getElementById("btn-side-ingredient");
+    if (sideIngredientBtn) sideIngredientBtn.href = `item-ingredient.html?${currentSelection()}&target=side${tail}`;
   }
   updateDisplay();
 
   // 코울슬로처럼 바꿀 수 있는 재료가 아예 없는 사이드는 "재료추가/변경" 버튼 자체를 숨긴다
   // (누르면 빈 화면이 뜨는 것보다 낫다).
-  if (!(window.INGREDIENT_OPTIONS.side[sideId] || []).length) {
-    document.getElementById("btn-side-ingredient").hidden = true;
+  const sideIngredientBtn = document.getElementById("btn-side-ingredient");
+  if (sideIngredientBtn && !(window.INGREDIENT_OPTIONS.side[sideId] || []).length) {
+    sideIngredientBtn.hidden = true;
   }
 
   document.getElementById("qty-minus").addEventListener("click", () => {
