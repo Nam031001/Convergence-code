@@ -78,18 +78,6 @@ a.category-nav__item--step:not(.is-active) {
   border: #D4CEB3 4px solid;
   background: var(--color-white);
   height: 350px;
-  padding-bottom: 0;
-}
-
-/* 이름(+추가금액)을 썸네일 아래 흰 여백의 정가운데에 둔다: 이름 위와 맨 끝 빈 요소 위에
-   auto 마진을 줘서 남는 공간을 위아래로 똑같이 나눈다(위아래 모두 gap 26px 포함). */
-.option-card__label {
-  margin-top: auto;
-}
-
-.option-card::after {
-  content: "";
-  margin-top: auto;
 }
 
 /* menu.css 의 .menu-card__thumb 와 동일하게, 카드 패딩을 무시하고 이미지가
@@ -98,13 +86,13 @@ a.category-nav__item--step:not(.is-active) {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 카드 높이가 고정(374px)이라 aspect-ratio 를 두면 썸네일이 카드를 거의 다 먹어서
-     이름이 카드 밖으로 밀려났다. 추가금액 유무와 상관없이 썸네일 높이를 같게 고정한다. */
-  flex: 0 0 58%;
-  margin: calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad)) 0;
+  /* 이름(+추가금액)을 뺀 카드 위쪽 흰 여백을 전부 차지해서, 사진이 그 여백의 정가운데에 온다.
+     (aspect-ratio 를 두면 카드 높이가 고정이라 이름이 카드 밖으로 밀려난다) */
+  flex: 1 1 0;
+  min-height: 0;
+  /* 아래쪽은 카드 gap(17px)만큼 늘려서 이름 바로 위까지 차지하게 한다 — 그래야 사진 위아래 여백이 같다. */
+  margin: calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad)) -17px;
   border-radius: clamp(5.33px, 1vw, 8.53px) clamp(5.33px, 1vw, 8.53px) 0 0;
-  background: #eee;
-  aspect-ratio: 16 / 9;
 }
 
 .option-card__thumb-icon {
@@ -301,13 +289,24 @@ body.solo-screen {
   flex-shrink: 0;
 }
 
-/* PNG 좌우에 투명 여백이 많아(실제 음식은 가로 438px 중 280px), 음식 부분이 영역 너비에
-   맞도록 438/280 배 넓게 잡고 투명 여백은 잘라낸다. 비율은 object-fit: contain 으로 유지. */
+/* asset/menu 사진은 투명 여백을 미리 잘라둬서, 영역 안에 비율 그대로 꽉 맞추기만 하면 된다. */
 .review-image img {
-  flex-shrink: 0;
-  width: calc(100% * 438 / 280);
-  max-width: none; /* common.css 의 img { max-width: 100% } 해제 */
+  width: 100%;
   height: 100%;
+  object-fit: contain;
+}
+
+/* 메뉴/옵션 사진 썸네일: 칸 안에 비율 그대로, 가장자리에 살짝 여유를 두고 맞춘다. */
+.option-card__thumb {
+  position: relative;
+}
+
+.option-card__thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 6%;
   object-fit: contain;
 }
 
@@ -517,4 +516,17 @@ body.solo-screen {
   pointer-events: none;
   background-color: #f4d37e;
   color: #fff;
+}
+
+/* 사이드 사진은 칸에 꽉 맞추면 사진마다 크기가 제각각이라(넓적한 코울슬로는 커 보이고,
+   추가금액 줄 때문에 칸이 낮은 큰 감자튀김은 작아 보임) 높이를 고정하고 가로 최대 폭만 제한한다. */
+#side-options .option-card__thumb-img {
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: 180px;
+  max-width: 38%;
+  padding: 0;
 }

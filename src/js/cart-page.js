@@ -191,7 +191,8 @@
     }
 
     el.innerHTML = `
-      <div class="cart-item__thumb" aria-hidden="true">        ${THUMB_SVG}
+      <div class="cart-item__thumb" aria-hidden="true">
+        ${window.KioskState.menuImageTag(it.itemId, "cart-item__thumb-img") || THUMB_SVG}
       </div>
       <div class="cart-item__body">
         <div class="cart-item__top">

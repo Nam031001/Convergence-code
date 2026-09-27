@@ -1,5 +1,5 @@
 // kiosk/menu.html 렌더링. 카테고리/페이지는 URL(?category=&page=)로 정해지고,
-// 추천메뉴/웰런치/버거 카드는 실제 링크(<a href>)로 item-variant.html(단품/세트)로 이동하고,
+// 추천메뉴/웩런치/버거 카드는 실제 링크(<a href>)로 item-variant.html(단품/세트)로 이동하고,
 // 나머지 카테고리 카드는 화면 이동 없이 이 페이지 위에 뜨는 빠른 담기 팝업을 연다.
 (function () {
   const PAGE_SIZE = 6;
@@ -135,7 +135,7 @@
     const el = document.createElement(isDetail ? "a" : "button");
     el.className = "menu-card";
     if (isDetail) {
-      // 추천메뉴/웰런치는 이름/가격이 이미 "~세트" 기준이라 단품/세트를 다시 고르게 하면
+      // 추천메뉴/웩런치는 이름/가격이 이미 "~세트" 기준이라 단품/세트를 다시 고르게 하면
       // 모순이 생긴다(category.fixedVariant 참고) — 그 값으로 바로 사이드 선택부터 시작한다.
       el.href = category.fixedVariant
         ? `item-side.html?itemId=${encodeURIComponent(item.id)}&variantId=${encodeURIComponent(category.fixedVariant)}`
@@ -145,13 +145,15 @@
       el.addEventListener("click", () => openQuickAddModal(item));
     }
     el.innerHTML = `
-      <span class="menu-card__thumb" aria-hidden="true">        <svg class="menu-card__thumb-icon" viewBox="0 0 48 48" fill="none">
+      <span class="menu-card__thumb" aria-hidden="true">${
+        window.KioskState.menuImageTag(item.id, "menu-card__thumb-img") ||
+        `<svg class="menu-card__thumb-icon" viewBox="0 0 48 48" fill="none">
           <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
           <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
           <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>
           <path d="M4 36c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4s-1.8 4-4 4H8c-2.2 0-4-1.8-4-4Z" fill="currentColor"/>
-        </svg>
-      </span>
+        </svg>`
+      }</span>
       <span class="menu-card__name">${window.KioskState.pickText(item.name, item.nameEn)}</span>
       <span class="menu-card__price">${item.price.toLocaleString()}<span class="menu-card__price-won">${window.KioskState.t("won")}</span></span>
     `;

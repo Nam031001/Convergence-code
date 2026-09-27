@@ -108,6 +108,13 @@ window.KioskState = (function () {
   }
 
   // 화면마다 다른 "숫자원" 조합을 한곳에서 통일한다(영어는 숫자와 word 사이 띄어쓰기가 필요).
+  // 메뉴/옵션 사진 <img> 태그. 사진이 없으면 null(호출하는 쪽이 기존 아이콘을 그대로 둔다).
+  function menuImageTag(id, className) {
+    if (!id || !window.MENU_IMAGE_IDS || !window.MENU_IMAGE_IDS.has(id)) return null;
+    const depth = location.pathname.includes("/src/screens/") ? "../../" : "";
+    return `<img class="${className}" src="${depth}asset/menu/${encodeURIComponent(id)}.png" alt="" loading="lazy" />`;
+  }
+
   function formatPrice(amount) {
     return `${amount.toLocaleString()}${getLang() === "en" ? " " : ""}${t("won")}`;
   }
@@ -128,7 +135,7 @@ window.KioskState = (function () {
   }
 
   // 단품/세트/큰세트 최종 가격. item.price 의 의미가 카테고리마다 다르다 —
-  // 추천메뉴/웰런치는 이름이 "~세트"라 price 가 세트 가격이고, 버거처럼
+  // 추천메뉴/웩런치는 이름이 "~세트"라 price 가 세트 가격이고, 버거처럼
   // category.priceBase === "single" 인 곳은 이름에 "세트"가 없는 만큼 price 가 단품 가격이다.
   // 그 차이를 여기 한 곳에서만 반영해서, 화면마다 직접 item.price + delta 를 계산하다가
   // 카테고리별 기준이 다르다는 걸 놓치는 실수(단품을 더 깎아버리는 등)를 막는다.
@@ -357,7 +364,7 @@ window.KioskState = (function () {
   function stepHref(stepId, ctx) {
     const itemId = encodeURIComponent(ctx.itemId);
     const editSuffix = ctx.cartItemId ? `&cartItemId=${encodeURIComponent(ctx.cartItemId)}` : "";
-    // 추천메뉴/웰런치처럼 단품/세트 선택 자체를 건너뛰는 상품은 이 단계로 못 돌아가게
+    // 추천메뉴/웩런치처럼 단품/세트 선택 자체를 건너뛰는 상품은 이 단계로 못 돌아가게
     // 막는다(사이드바에서 다시 눌러서 "세트"였던 걸 "단품"으로 바꿔버리는 걸 방지).
     if (stepId === "variant") return ctx.variantLocked ? null : `item-variant.html?itemId=${itemId}`;
     if (stepId === "side") {
@@ -538,6 +545,7 @@ window.KioskState = (function () {
     pickText,
     t,
     formatPrice,
+    menuImageTag,
     formatDelta,
     getVariantPrice,
     confirmRemoveMessage,

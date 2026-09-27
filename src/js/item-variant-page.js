@@ -41,7 +41,15 @@
   );
 
   const idParam = encodeURIComponent(item.id);
-  document.getElementById("option-single").href = `item-added.html?itemId=${idParam}&variantId=single`;
+  // 단품/세트/큰 세트 카드 모두 그 메뉴의 사진을 쓴다.
+  const variantImg = window.KioskState.menuImageTag(item.id, "option-card__thumb-img");
+  if (variantImg) {
+    document.querySelectorAll(".option-card__thumb").forEach((thumb) => {
+      thumb.innerHTML = variantImg;
+    });
+  }
+
+  document.getElementById("option-single").href =`item-added.html?itemId=${idParam}&variantId=single`;
   document.getElementById("option-set").href = `item-side.html?itemId=${idParam}&variantId=set`;
   document.getElementById("option-set-l").href = `item-side.html?itemId=${idParam}&variantId=set-l`;
   // 이전: 이 화면이 첫 단계라 메뉴 목록으로 돌아간다.

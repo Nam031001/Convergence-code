@@ -32,14 +32,14 @@ window.MENU_CATEGORIES = [
   },
   {
     id: "welunch",
-    label: "웰런치",
+    label: "웩런치",
     labelEn: "WeLunch",
     fixedVariant: "set", // recommend 와 동일한 이유(이름/가격이 이미 "~세트" 기준)
     items: [
-      { id: "w1", name: "웰런치 불고기 버거 세트", nameEn: "WeLunch Bulgogi Burger Set", price: 5900 },
-      { id: "w2", name: "웰런치 치즈버거 세트", nameEn: "WeLunch Cheeseburger Set", price: 5500 },
-      { id: "w3", name: "웰런치 상하이 버거 세트", nameEn: "WeLunch Shanghai Burger Set", price: 6100 },
-      { id: "w4", name: "웰런치 웩치킨 세트", nameEn: "WeLunch McChicken Set", price: 5700 },
+      { id: "w1", name: "웩런치 불고기 버거 세트", nameEn: "WeLunch Bulgogi Burger Set", price: 5900 },
+      { id: "w2", name: "웩런치 치즈버거 세트", nameEn: "WeLunch Cheeseburger Set", price: 5500 },
+      { id: "w3", name: "웩런치 상하이 버거 세트", nameEn: "WeLunch Shanghai Burger Set", price: 6100 },
+      { id: "w4", name: "웩런치 웩치킨 세트", nameEn: "WeLunch McChicken Set", price: 5700 },
     ],
   },
   {
@@ -47,7 +47,7 @@ window.MENU_CATEGORIES = [
     label: "버거",
     labelEn: "Burgers",
     // 이 카테고리는 이름에 "세트"가 안 붙어있는 것에서 알 수 있듯 price 가 이미 단품 가격이다
-    // (추천메뉴/웰런치는 반대로 이름이 "~세트"라 price 가 세트 가격). 단품/세트/큰세트 화면에서
+    // (추천메뉴/웩런치는 반대로 이름이 "~세트"라 price 가 세트 가격). 단품/세트/큰세트 화면에서
     // 가격을 계산할 때 이 차이를 반영해야 한다 (KioskState.getVariantPrice 참고).
     priceBase: "single",
     items: [
@@ -97,7 +97,6 @@ window.MENU_CATEGORIES = [
     items: [
       { id: "d1", name: "소프트콘", nameEn: "Soft Serve Cone", price: 1200 },
       { id: "d2", name: "웩플러리 오레오", nameEn: "McFlurry Oreo", price: 3900 },
-      { id: "d3", name: "애플파이", nameEn: "Apple Pie", price: 1700 },
     ],
   },
   {
@@ -174,3 +173,7 @@ window.INGREDIENT_OPTIONS = {
     coleslaw: [], // 완제품 샐러드라 추가/변경할 재료가 없음 — item-review-page.js 가 이 경우 버튼 자체를 숨긴다.
   },
 };
+
+// asset/menu/<id>.png 로 사진이 있는 메뉴/옵션 id (공식 사진에서 투명 여백을 잘라낸 사본).
+// 여기 없는 id(예: d3)는 기존 아이콘 자리표시를 그대로 쓴다.
+window.MENU_IMAGE_IDS = new Set(["americano", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "c1", "c2", "c3", "cola", "coleslaw", "d1", "d2", "dr1", "dr2", "dr3", "fanta", "fries", "fries-l", "icetea", "latte", "orange", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "s1", "s2", "s3", "sd1", "sd2", "sd3", "shake", "sprite", "w1", "w2", "w3", "w4", "water", "zerocola"]);

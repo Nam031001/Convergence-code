@@ -64,6 +64,8 @@
   // 음료 카드를 누르는 것 자체가 선택 완료다: 카드는 최종 확인 화면으로 가는 링크(a)다.
   cards.forEach((card) => {
     const option = window.DRINK_OPTIONS[card.dataset.id];
+    const img = window.KioskState.menuImageTag(card.dataset.id, "option-card__thumb-img");
+    if (img) card.querySelector(".option-card__thumb").innerHTML = img;
     if (option) {
       card.querySelector(".option-card__label").textContent = window.KioskState.pickText(
         option.label,

@@ -39,7 +39,7 @@
     btnBack.hidden = true;
   }
 
-  // 이전: 단품/세트 선택으로 돌아간다. 그 선택 자체가 없는 상품(추천메뉴/웰런치,
+  // 이전: 단품/세트 선택으로 돌아간다. 그 선택 자체가 없는 상품(추천메뉴/웩런치,
   // category.fixedVariant)은 이 화면이 첫 단계라 메뉴 목록으로 돌아간다.
   // 최종 주문 확인(장바구니)의 "수정하기"로 들어온 경우엔 장바구니로,
   // 주문 확인의 "수정"으로 들어온 경우엔 "돌아가기"만 남긴다.
@@ -89,6 +89,8 @@
 
   document.querySelectorAll("#side-options .option-card").forEach((card) => {
     const option = window.SIDE_OPTIONS[card.dataset.id];
+    const img = window.KioskState.menuImageTag(card.dataset.id, "option-card__thumb-img");
+    if (img) card.querySelector(".option-card__thumb").innerHTML = img;
     if (option) {
       card.querySelector(".option-card__label").textContent = window.KioskState.pickText(
         option.label,
