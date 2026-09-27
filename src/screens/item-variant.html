@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>맥도날드 키오스크</title>
+  <title>웩도날드 키오스크</title>
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/menu.css">
   <link rel="stylesheet" href="../css/item-detail.css">
 </head>
 <body>
   <aside class="category-nav">
-    <img class="category-nav__logo" src="../../asset/logo.png" alt="맥도날드 로고" data-i18n-alt="logoAlt">
+    <img class="category-nav__logo" src="../../asset/logo.png" alt="웩도날드 로고" data-i18n-alt="logoAlt">
     <nav class="category-nav__list" id="step-nav-list"></nav>
     <nav class="category-nav__utility" id="category-nav-utility"></nav>
   </aside>
@@ -20,7 +20,6 @@
       <h1 class="menu-header__title" id="step-title">메뉴</h1>
       <div class="menu-header__actions">
         <!-- <button class="pill-btn pill-btn--muted" type="button" id="btn-nutrition">영양정보</button> -->
-        <a class="pill-btn pill-btn--solid" data-home data-i18n="home">처음으로</a>
       </div>
     </header>
 
@@ -75,11 +74,11 @@
     </div>
 
     <footer class="step-actions">
-      <a class="step-actions__prev" id="btn-cancel-detail" data-i18n="cancel">취소</a>
+      <a class="step-actions__prev" id="btn-prev" data-i18n="prev">이전</a>
     </footer>
   </div>
 
-  <!-- "처음으로"를 누르면 뜨는 확인 팝업(장바구니가 비어있으면 안 뜨고 바로 이동) -->
+  <!-- "처음으로"를 누르면 항상 뜨는 확인 팝업 -->
   <div class="quick-add-modal" id="confirm-home-modal" hidden>
     <div class="quick-add-modal__card">
       <p class="quick-add-modal__name" id="confirm-home-message" data-i18n-html="confirmHome">

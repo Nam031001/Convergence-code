@@ -44,7 +44,8 @@
   document.getElementById("option-single").href = `item-added.html?itemId=${idParam}&variantId=single`;
   document.getElementById("option-set").href = `item-side.html?itemId=${idParam}&variantId=set`;
   document.getElementById("option-set-l").href = `item-side.html?itemId=${idParam}&variantId=set-l`;
-  document.getElementById("btn-cancel-detail").href = `menu.html?category=${encodeURIComponent(category.id)}`;
+  // 이전: 이 화면이 첫 단계라 메뉴 목록으로 돌아간다.
+  document.getElementById("btn-prev").href = `menu.html?category=${encodeURIComponent(category.id)}`;
 
   // 영양정보 버튼은 일단 각주 처리(주석)해놔서 DOM에 없을 수 있다.
   document.getElementById("btn-nutrition")?.addEventListener("click", () => {

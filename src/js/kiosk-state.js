@@ -32,10 +32,10 @@ window.KioskState = (function () {
   // ---------- 화면 전반의 고정 문구(버튼/제목/안내 등) ----------
   // 메뉴/옵션 이름처럼 데이터에 딸린 게 아니라 화면에 박혀있는 문구들의 유일한 기준.
   const UI_STRINGS = {
-    pageTitle: { ko: "맥도날드 키오스크", en: "McDonald's Kiosk" },
-    logoAlt: { ko: "맥도날드 로고", en: "McDonald's logo" },
+    pageTitle: { ko: "웩도날드 키오스크", en: "McDonald's Kiosk" },
+    logoAlt: { ko: "웩도날드 로고", en: "McDonald's logo" },
     bannerAlt: {
-      ko: "더블 맥스파이시 상하이 버거 - 버거의 맛과 크기를 더블로 높였다!",
+      ko: "더블 웩스파이시 상하이 버거 - 버거의 맛과 크기를 더블로 높였다!",
       en: "Double McSpicy Shanghai Burger - doubled the taste and size of a burger!",
     },
     dineIn: { ko: "매장", en: "Dine In" },
@@ -49,8 +49,8 @@ window.KioskState = (function () {
     won: { ko: "원", en: "won" },
     nutrition: { ko: "영양정보", en: "Nutrition Info" },
     cancel: { ko: "취소", en: "Cancel" },
-    confirm: { ko: "확인", en: "Confirm" },
-    prev: { ko: "이전", en: "Previous" },
+    confirm: { ko: "확인", en: "Confirm" },    prev: { ko: "이전", en: "Previous" },
+    backToReview: { ko: "돌아가기", en: "Back" },
     addToCart: { ko: "장바구니 추가", en: "Add to Cart" },
     editComplete: { ko: "수정 완료", en: "Update" },
     edit: { ko: "수정", en: "Edit" },
@@ -176,7 +176,7 @@ window.KioskState = (function () {
   }
 
   // ---------- 장바구니 (항목 배열) ----------
-  // cartItem: { id, itemId, name, badge?, variantId?, variantLabel?, sideId?, sideLabel?,
+  // cartItem: { id, itemId, name, variantId?, variantLabel?, sideId?, sideLabel?,
   //             drinkId?, drinkLabel?, unitPrice, qty }
   // id/label 쌍으로 둔 이유: 화면엔 label(사람이 읽는 이름)을 보여주고,
   // "수정하기" 링크는 id로 다시 만들어야 해서 둘 다 저장해둔다.
@@ -378,7 +378,8 @@ window.KioskState = (function () {
   // ctx: { itemId, variantId?, sideId?, cartItemId? } - 지금까지 정해진 선택값.
   function renderStepNav(container, currentStepId, ctx) {
     container.innerHTML = "";
-    ITEM_STEPS.forEach((step) => {
+    const currentIndex = ITEM_STEPS.findIndex((s) => s.id === currentStepId);
+    ITEM_STEPS.forEach((step, index) => {
       const href = stepHref(step.id, ctx);
       const el = document.createElement(href ? "a" : "span");
       el.className = "category-nav__item category-nav__item--step";
@@ -386,6 +387,8 @@ window.KioskState = (function () {
       if (href) el.href = href;
       if (step.id === currentStepId) el.classList.add("is-active");
       if (!href) el.classList.add("is-disabled");
+      // 지금 단계보다 앞선 단계는 이미 끝낸 단계(건너뛴 단계는 링크가 없어 제외)
+      else if (index < currentIndex) el.classList.add("is-done");
       container.appendChild(el);
     });
     appendUtilityNav(container);
@@ -490,7 +493,6 @@ window.KioskState = (function () {
 
     homeEls.forEach((el) => {
       el.addEventListener("click", (e) => {
-        if (getCart().count === 0) return; // 빈 장바구니면 확인 없이 바로 이동
         e.preventDefault();
         modal.hidden = false;
       });
@@ -567,7 +569,6 @@ window.KioskState = (function () {
 document.addEventListener("DOMContentLoaded", () => {
   window.KioskState.applyPreferences();
   window.KioskState.applyStaticI18n();
-  // 무입력 자동 복귀는 잠시 꺼둠(다시 켜려면 아래 줄의 // 를 지운다)
-  // window.KioskState.startIdleReturn();
+  window.KioskState.startIdleReturn();
   window.KioskState.wireHomeButtons();
 });

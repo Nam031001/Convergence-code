@@ -29,16 +29,27 @@
     `item-review.html?itemId=${idParam}&variantId=${variantParam}` +
     `&sideId=${encodeURIComponent(currentSideId)}&drinkId=${encodeURIComponent(currentDrinkId)}`;
 
-  // 취소: 이 상품 주문을 그만두고 목록으로(장바구니 항목 수정 중이면 장바구니로)
-  document.getElementById("btn-cancel").href = cartItemId
-    ? "cart.html"
-    : `menu.html?category=${encodeURIComponent(category.id)}`;
+  // 돌아가기: 최종 확인의 "수정"으로 들어온 경우에만 보인다. "취소"는 전체 주문을
+  // 그만두는 큰 동작이라, 그냥 사이드를 안 바꾸고 되돌아가고 싶을 때 잘못 누르면
+  // 위험하다 — 아무것도 안 바꾼 채 원래 있던 최종 확인 화면으로 그대로 돌아간다.
+  const btnBack = document.getElementById("btn-back");
+  if (fromReview) {
+    btnBack.href = reviewBase() + carry;
+  } else {
+    btnBack.hidden = true;
+  }
 
   // 이전: 단품/세트 선택으로 돌아간다. 그 선택 자체가 없는 상품(추천메뉴/웰런치,
-  // category.fixedVariant)은 이 화면이 첫 단계라 이전 버튼 자체를 감춘다.
+  // category.fixedVariant)은 이 화면이 첫 단계라 메뉴 목록으로 돌아간다.
+  // 최종 주문 확인(장바구니)의 "수정하기"로 들어온 경우엔 장바구니로,
+  // 주문 확인의 "수정"으로 들어온 경우엔 "돌아가기"만 남긴다.
   const btnPrev = document.getElementById("btn-prev");
-  if (category.fixedVariant) {
+  if (fromReview) {
     btnPrev.hidden = true;
+  } else if (cartItemId) {
+    btnPrev.href = "cart.html";
+  } else if (category.fixedVariant) {
+    btnPrev.href = `menu.html?category=${encodeURIComponent(category.id)}`;
   } else {
     btnPrev.href = `item-variant.html?itemId=${idParam}${carry}`;
   }
@@ -47,6 +58,17 @@
   // (최종 확인에서 "수정"으로 왔으면 음료 선택을 건너뛰고 최종 확인으로 돌아간다.)
   function hrefFor(card) {
     const sideParam = encodeURIComponent(card.dataset.id);
+    if (cartItemId && !fromReview) {
+      // 최종 주문 확인(장바구니)의 "수정하기"로 왔으면 음료 단계로 넘어가지 않고 바로 저장 후
+      // 장바구니로 돌아간다(item-added.html 이 cartItemId 로 항목을 교체하고 cart.html 로 이동).
+      const carryParams = new URLSearchParams(location.search);
+      if (card.dataset.id !== currentSideId) carryParams.delete("sideMods");
+      return (
+        `item-added.html?itemId=${idParam}&variantId=${variantParam}&sideId=${sideParam}` +
+        `&drinkId=${encodeURIComponent(currentDrinkId)}` +
+        window.KioskState.carryQuery(carryParams)
+      );
+    }
     if (fromReview) {
       // 사이드가 바뀌면 그 사이드용 재료 변경은 의미가 없어지므로 버린다.
       const carryParams = new URLSearchParams(location.search);
@@ -77,8 +99,6 @@
       deltaEl.hidden = !option.priceDelta;
     }
     card.href = hrefFor(card);
-    // 이미 고른 사이드가 있으면(수정) 표시만 해 둔다.
-    if (currentSideId && card.dataset.id === currentSideId) card.classList.add("is-selected");
   });
 
   document.getElementById("btn-nutrition")?.addEventListener("click", () => {

@@ -191,9 +191,7 @@
     }
 
     el.innerHTML = `
-      <div class="cart-item__thumb" aria-hidden="true">
-        ${it.badge ? `<span class="cart-item__badge">${it.badge === "new" ? "NEW" : it.badge}</span>` : ""}
-        ${THUMB_SVG}
+      <div class="cart-item__thumb" aria-hidden="true">        ${THUMB_SVG}
       </div>
       <div class="cart-item__body">
         <div class="cart-item__top">

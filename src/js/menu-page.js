@@ -145,9 +145,7 @@
       el.addEventListener("click", () => openQuickAddModal(item));
     }
     el.innerHTML = `
-      <span class="menu-card__thumb" aria-hidden="true">
-        ${item.badge ? `<span class="menu-card__badge">${item.badge === "new" ? "NEW" : item.badge}</span>` : ""}
-        <svg class="menu-card__thumb-icon" viewBox="0 0 48 48" fill="none">
+      <span class="menu-card__thumb" aria-hidden="true">        <svg class="menu-card__thumb-icon" viewBox="0 0 48 48" fill="none">
           <path d="M6 20c0-6 8-11 18-11s18 5 18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
           <rect x="5" y="21" width="38" height="6" rx="3" fill="currentColor"/>
           <rect x="6" y="29" width="36" height="5" rx="2.5" fill="currentColor" opacity="0.55"/>

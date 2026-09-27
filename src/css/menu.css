@@ -93,6 +93,7 @@ body,
 
 .menu-header__title {
   /* font-size: clamp(22px, 2.6vw, 40px); */
+  max-width: 70%;
   font-size: 66px;
   font-weight: 600;
   line-height: 1.2;
@@ -153,8 +154,9 @@ body,
 
 /* prev/next 는 a 태그라 href 없는 상태(더 넘길 페이지가 없을 때)를 :disabled 대신 .is-disabled 로 표시한다. */
 .menu-pager__arrow.is-disabled {
-  opacity: 0.35;
   pointer-events: none;
+  background-color: #f4d37e;
+  color: #fff;
 }
 
 .menu-grid {
@@ -199,19 +201,6 @@ body,
   height: clamp(19.2px, 4.4vw, 34.13px);
   color: #b9b9b9;
 }
-
-/* .menu-card__badge {
-  position: absolute;
-  top: clamp(3.2px, 0.7vw, 5.33px);
-  left: clamp(3.2px, 0.7vw, 5.33px);
-  padding: 1.07px clamp(4.27px, 0.8vw, 6.4px);
-  border-radius: 532.8px;
-  background: #2e8b3d;
-  color: var(--color-white);
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-} */
 
 .menu-card__name {
   /* font-size: clamp(14px, 1.4vw, 20px); */
@@ -550,9 +539,11 @@ body.low-stance .cart-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
+  gap: 100px;
   /* padding: clamp(28px, 3.6vw, 56px) clamp(20px, 2.6vw, 40px); */
-  padding: 35px;
+  padding-inline: 35px;
+  padding-bottom: 35px;
+  padding-top: 100px;
   border-radius: clamp(9.6px, 1.8vw, 17.07px);
   background: #f2b51b;
   justify-content: end;
@@ -576,7 +567,7 @@ body.low-stance .cart-bar {
 .quick-add-modal__name {
   margin: 0;
   /* font-size: clamp(20px, 2.2vw, 32px); */
-  font-size: 66px;
+  font-size: 45px;
   font-weight: 500;
   color: #1a1a1a;
   text-align: center;

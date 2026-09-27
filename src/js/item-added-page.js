@@ -41,9 +41,7 @@
   // 언어는 index.html 에서 한 번 고르면 세션 내내 안 바뀌므로, 지금 언어로 고른 표시 문구를 그대로 저장해둔다.
   const cartItem = {
     itemId: item.id,
-    name: window.KioskState.pickText(item.name, item.nameEn),
-    badge: item.badge || null,
-    variantId: params.get("variantId") || null,
+    name: window.KioskState.pickText(item.name, item.nameEn),    variantId: params.get("variantId") || null,
     variantLabel: variant ? window.KioskState.pickText(variant.label, variant.labelEn) : null,
     sideId: sideId || null,
     sideLabel: side ? window.KioskState.pickText(side.label, side.labelEn) : null,

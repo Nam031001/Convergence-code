@@ -67,7 +67,7 @@
   gap: clamp(5.33px, 1vw, 9.6px);
   min-height: 290px;
   padding: clamp(11.73px, 2.4vw, 21.33px) clamp(5.33px, 1.2vw, 10.67px);
-  border-radius: clamp(5.33px, 0.9vw, 8.53px);
+  border-radius: 16px;
   background: var(--color-dark);
   color: var(--color-white);
   transition: background-color 0.15s ease;
