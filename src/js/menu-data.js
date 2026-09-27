@@ -75,9 +75,9 @@ window.MENU_CATEGORIES = [
     label: "사이드",
     labelEn: "Sides",
     items: [
-      { id: "sd1", name: "웩도날드 후렌치 후라이 (미디엄)", nameEn: "McDonald's French Fries (Medium)", price: 2500 },
-      { id: "sd2", name: "웩도날드 후렌치 후라이 (라지)", nameEn: "McDonald's French Fries (Large)", price: 2900 },
-      { id: "sd3", name: "코울슬로", nameEn: "Coleslaw", price: 2200 },
+      { id: "sd1", name: "감자튀김", nameEn: "McDonald's French Fries (Medium)", price: 2500 },
+      { id: "sd2", name: "큰 감자튀김(L)", nameEn: "McDonald's French Fries (Large)", price: 2900 },
+      { id: "sd3", name: "코울슬로(샐러드)", nameEn: "Coleslaw", price: 2200 },
     ],
   },
   {

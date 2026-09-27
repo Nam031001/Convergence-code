@@ -45,6 +45,8 @@ window.KioskState = (function () {
       ko: "처음 화면으로 돌아가시겠습니까?<br>담긴 메뉴가 모두 삭제됩니다.",
       en: "Go back to the start screen?<br>Everything in your cart will be cleared.",
     },
+    idleWarning: { ko: "계속 주문하시겠습니까?", en: "Would you like to continue your order?" },
+    continueOrder: { ko: "계속하기", en: "Continue" },
     orderNow: { ko: "주문하기", en: "Order Now" },
     won: { ko: "원", en: "won" },
     nutrition: { ko: "영양정보", en: "Nutrition Info" },
@@ -516,18 +518,41 @@ window.KioskState = (function () {
   // 첫 화면(index.html)을 뺀 모든 화면에서 IDLE_MS 동안 입력이 없으면 초기화하고 첫 화면으로 돌아간다.
   
   const IDLE_MS = 30 * 1000;
+  // 자동 복귀 이만큼 전에 "계속 주문하시겠습니까?" 팝업을 띄운다.
+  const IDLE_WARN_BEFORE_MS = 10 * 1000;
 
   function startIdleReturn() {
     if (!location.pathname.includes("/src/screens/")) return;
 
+    // "처음으로" 확인 팝업과 같은 스타일(.quick-add-modal)을 그대로 쓴다. 모든 화면에 필요해서 JS로 만든다.
+    const warnModal = document.createElement("div");
+    warnModal.className = "quick-add-modal";
+    warnModal.id = "idle-warning-modal";
+    warnModal.hidden = true;
+    warnModal.innerHTML = `
+      <div class="quick-add-modal__card">
+        <p class="quick-add-modal__name">${t("idleWarning")}</p>
+        <div class="quick-add-modal__actions">
+          <button class="step-actions__confirm" type="button" id="idle-continue">${t("continueOrder")}</button>
+        </div>
+      </div>`;
+    document.body.appendChild(warnModal);
+
     let timer = null;
+    let warnTimer = null;
     function goHome() {
       clearCart();
       sessionStorage.removeItem(LANG_KEY);
       location.replace("../../index.html");
     }
+    // 화면을 건드리면(계속하기 버튼 포함) 타이머가 처음부터 다시 돌고 팝업도 닫힌다.
     function reset() {
       clearTimeout(timer);
+      clearTimeout(warnTimer);
+      warnModal.hidden = true;
+      warnTimer = setTimeout(() => {
+        warnModal.hidden = false;
+      }, IDLE_MS - IDLE_WARN_BEFORE_MS);
       timer = setTimeout(goHome, IDLE_MS);
     }
 
