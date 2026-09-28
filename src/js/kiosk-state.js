@@ -514,6 +514,64 @@ window.KioskState = (function () {
     document.getElementById("confirm-home-ok")?.addEventListener("click", goHome);
   }
 
+  // ---------- 버튼 터치 효과음 ----------
+  // 미리 받아 디코딩해 둔 소리를 손가락이 닿는 순간(pointerdown) 바로 재생한다.
+  function startTapSound() {
+    const depth = location.pathname.includes("/src/screens/") ? "../../" : "";
+    const url = `${depth}asset/floraphonic-bloop-4-186533.mp3`;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let ctx = null;
+    let buffer = null;
+    if (AudioCtx) {
+      ctx = new AudioCtx();
+      fetch(url)
+        .then((res) => res.arrayBuffer())
+        .then((data) => new Promise((resolve, reject) => ctx.decodeAudioData(data, resolve, reject)))
+        .then((decoded) => {
+          buffer = decoded;
+        })
+        .catch(() => {});
+    }
+    const fallback = new Audio(url);
+    fallback.preload = "auto";
+
+    function play() {
+      if (ctx && buffer) {
+        if (ctx.state === "suspended") ctx.resume();
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(ctx.destination);
+        source.start();
+        return;
+      }
+      fallback.currentTime = 0;
+      fallback.play().catch(() => {});
+    }
+
+    document.addEventListener(
+      "pointerdown",
+      (e) => {
+        const el = e.target.closest("a[href], button");
+        if (!el || el.disabled || el.classList.contains("is-disabled")) return;
+        play();
+      },
+      { capture: true, passive: true }
+    );
+
+    // 다른 화면으로 가는 링크는 바로 넘어가면 효과음(약 0.2초)이 잘려서 아주 잠깐 늦게 이동한다.
+    // 다른 코드가 이미 막은 클릭(확인 팝업을 띄우는 "처음으로" 등)은 건드리지 않는다.
+    document.addEventListener("click", (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      const a = e.target.closest("a[href]");
+      if (!a || a.target === "_blank") return;
+      e.preventDefault();
+      const href = a.href;
+      setTimeout(() => {
+        location.href = href;
+      }, 150);
+    });
+  }
+
   // ---------- 무입력 자동 복귀 ----------
   // 첫 화면(index.html)을 뺀 모든 화면에서 IDLE_MS 동안 입력이 없으면 초기화하고 첫 화면으로 돌아간다.
   
@@ -580,6 +638,7 @@ window.KioskState = (function () {
     confirmRemoveMessage,
     applyStaticI18n,
     startIdleReturn,
+    startTapSound,
     wireHomeButtons,
     parseMods,
     stringifyMods,
@@ -607,5 +666,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.KioskState.applyPreferences();
   window.KioskState.applyStaticI18n();
   window.KioskState.startIdleReturn();
+  window.KioskState.startTapSound();
   window.KioskState.wireHomeButtons();
 });
