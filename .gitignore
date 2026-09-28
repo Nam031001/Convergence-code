@@ -24,3 +24,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+# 위 Icon 규칙은 대소문자를 구분하지 않아(core.ignorecase) asset/icon 폴더까지 무시한다 — 다시 포함
+!asset/icon/
