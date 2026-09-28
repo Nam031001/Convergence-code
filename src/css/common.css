@@ -128,3 +128,14 @@ img {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
+
+/* +, −, ‹, › 자리에 쓰는 asset/icon 아이콘(흰색 PNG). 버튼 글자 크기(1em)에 맞춰진다. */
+.btn-icon {
+  display: block;
+  width: 60px;
+  height: 60px;
+  max-width: none; /* 위의 img { max-width: 100% } 때문에 폭이 좁은 버튼에서 0으로 줄어드는 것 방지 */
+  flex-shrink: 0;
+  margin: auto;
+  pointer-events: none;
+}

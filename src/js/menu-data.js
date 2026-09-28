@@ -111,10 +111,11 @@ window.MENU_CATEGORIES = [
   },
 ];
 
+// 사이드바 하단 메뉴(도움 기능/고대비 모드/낮은 자세)는 일단 숨김. 다시 켜려면 아래 주석을 푼다.
 window.UTILITY_NAV_ITEMS = [
-  { id: "help", label: "도움 기능", labelEn: "Help" },
-  { id: "contrast", label: "고대비 모드", labelEn: "High Contrast" },
-  { id: "low-stance", label: "낮은 자세", labelEn: "Low Stance" },
+  // { id: "help", label: "도움 기능", labelEn: "Help" },
+  // { id: "contrast", label: "고대비 모드", labelEn: "High Contrast" },
+  // { id: "low-stance", label: "낮은 자세", labelEn: "Low Stance" },
 ];
 
 // 단품/세트/사이드/음료 옵션의 유일한 기준(single source of truth).
@@ -174,6 +175,6 @@ window.INGREDIENT_OPTIONS = {
   },
 };
 
-// asset/menu/<id>.png 로 사진이 있는 메뉴/옵션 id (공식 사진에서 투명 여백을 잘라낸 사본).
+// asset/menu/<id>.webp 로 사진이 있는 메뉴/옵션 id (공식 사진에서 투명 여백을 잘라낸 사본).
 // 여기 없는 id(예: d3)는 기존 아이콘 자리표시를 그대로 쓴다.
 window.MENU_IMAGE_IDS = new Set(["americano", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "c1", "c2", "c3", "cola", "coleslaw", "d1", "d2", "dr1", "dr2", "dr3", "fanta", "fries", "fries-l", "icetea", "latte", "orange", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "s1", "s2", "s3", "sd1", "sd2", "sd3", "shake", "sprite", "w1", "w2", "w3", "w4", "water", "zerocola"]);

@@ -50,6 +50,11 @@ body,
   border-top: 0.53px solid rgba(255, 255, 255, 0.3);
 }
 
+/* 하단 메뉴가 하나도 없으면 구분선도 숨긴다 */
+.category-nav__utility:empty {
+  display: none;
+}
+
 .category-nav__item {
   flex-shrink: 0;
   /* padding: clamp(14px, 1.8vw, 26px) clamp(16px, 2vw, 28px); */
@@ -93,7 +98,7 @@ body,
 
 .menu-header__title {
   /* font-size: clamp(22px, 2.6vw, 40px); */
-  max-width: 70%;
+  /* max-width: 70%; */
   font-size: 66px;
   font-weight: 600;
   line-height: 1.2;
@@ -172,10 +177,10 @@ body,
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 26px;
+  gap: 17px;
   padding: 17px 26px;
   /* padding: clamp(10px, 1.2vw, 18px); */
-  border-radius: 16px;
+  border-radius: 20px;
   border: #D4CEB3 4px solid;
   background: var(--color-white);
   text-align: left;
@@ -422,9 +427,9 @@ body,
 .cart-preview__qty-btn {
   /* width: clamp(14.93px, 3vw, 21.33px); */
   width: 102px;
+  height: 60px;
   background: #3a3a3a;
   color: var(--color-white);
-  font-size: 34px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -434,6 +439,7 @@ body,
 .cart-preview__qty-value {
   /* width: clamp(14.93px, 3vw, 21.33px); */
   width: 102px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -622,4 +628,24 @@ body.low-stance .cart-bar {
   height: 120%;
   padding: 6%;
   object-fit: contain;
+}
+
+/* 빠른 담기 팝업의 메뉴 사진 */
+.quick-add-modal__image {
+  position: relative;
+}
+
+.quick-add-modal__image-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8%;
+  object-fit: contain;
+}
+
+/* 장바구니 미리보기 수량 버튼 아이콘: 글자 크기(34px) 그대로면 너무 작아서 키운다 */
+.cart-preview__qty-btn .btn-icon {
+  width: 50px;
+  height: 50px;
 }

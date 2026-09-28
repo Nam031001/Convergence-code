@@ -97,9 +97,9 @@
           ${optionLines.map((label) => `<p class="cart-preview__option">${label}</p>`).join("")}
         </div>
         <div class="cart-preview__qty">
-          <button class="cart-preview__qty-btn" type="button" aria-label="${window.KioskState.t("qtyMinus")}">−</button>
+          <button class="cart-preview__qty-btn" type="button" aria-label="${window.KioskState.t("qtyMinus")}"><img class="btn-icon" src="../../asset/icon/remove.png" alt="" /></button>
           <span class="cart-preview__qty-value">${it.qty}</span>
-          <button class="cart-preview__qty-btn" type="button" aria-label="${window.KioskState.t("qtyPlus")}">+</button>
+          <button class="cart-preview__qty-btn" type="button" aria-label="${window.KioskState.t("qtyPlus")}"><img class="btn-icon" src="../../asset/icon/add.png" alt="" /></button>
         </div>
       `;
 
@@ -177,9 +177,15 @@
       `item-added.html?itemId=${encodeURIComponent(modalItem.id)}&qty=${modalQty}`;
   }
 
+  // 사진이 없는 메뉴(예: d3)는 원래 있던 아이콘을 다시 보여준다.
+  const modalImageEl = document.getElementById("quick-add-image");
+  const modalImageFallback = modalImageEl.innerHTML;
+
   function openQuickAddModal(item) {
     modalItem = item;
     modalQty = 1;
+    modalImageEl.innerHTML =
+      window.KioskState.menuImageTag(item.id, "quick-add-modal__image-img") || modalImageFallback;
     modalNameEl.textContent = window.KioskState.pickText(item.name, item.nameEn);
     updateModalDisplay();
     modal.hidden = false;

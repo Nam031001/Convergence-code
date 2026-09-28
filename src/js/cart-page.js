@@ -205,11 +205,11 @@
           <div class="cart-item__qty">
             ${
               it.qty > 1
-                ? `<a class="cart-item__qty-btn" href="cart.html?dec=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}">−</a>`
-                : `<button class="cart-item__qty-btn" type="button" data-remove-id="${encodeURIComponent(it.id)}" data-remove-page="${currentPage}" data-remove-name="${it.name}" aria-label="${window.KioskState.t("qtyMinus")}">−</button>`
+                ? `<a class="cart-item__qty-btn" href="cart.html?dec=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyMinus")}"><img class="btn-icon" src="../../asset/icon/remove.png" alt="" /></a>`
+                : `<button class="cart-item__qty-btn" type="button" data-remove-id="${encodeURIComponent(it.id)}" data-remove-page="${currentPage}" data-remove-name="${it.name}" aria-label="${window.KioskState.t("qtyMinus")}"><img class="btn-icon" src="../../asset/icon/remove.png" alt="" /></button>`
             }
             <span class="cart-item__qty-value">${it.qty}</span>
-            <a class="cart-item__qty-btn" href="cart.html?inc=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyPlus")}">+</a>
+            <a class="cart-item__qty-btn" href="cart.html?inc=${encodeURIComponent(it.id)}&page=${currentPage}" aria-label="${window.KioskState.t("qtyPlus")}"><img class="btn-icon" src="../../asset/icon/add.png" alt="" /></a>
           </div>
         </div>
       </div>

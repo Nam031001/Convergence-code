@@ -43,7 +43,7 @@
 
   // 큰 이미지는 고른 메뉴의 사진으로(사진이 없는 메뉴면 기존 이미지 유지)
   if (window.MENU_IMAGE_IDS && window.MENU_IMAGE_IDS.has(itemId)) {
-    document.getElementById("review-image").src = `../../asset/menu/${encodeURIComponent(itemId)}.png`;
+    document.getElementById("review-image").src = `../../asset/menu/${encodeURIComponent(itemId)}.webp`;
   }
   document.getElementById("line-burger-name").textContent = baseName;
   document.getElementById("line-side-name").textContent = sideLabel;

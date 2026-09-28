@@ -114,7 +114,7 @@ window.KioskState = (function () {
   function menuImageTag(id, className) {
     if (!id || !window.MENU_IMAGE_IDS || !window.MENU_IMAGE_IDS.has(id)) return null;
     const depth = location.pathname.includes("/src/screens/") ? "../../" : "";
-    return `<img class="${className}" src="${depth}asset/menu/${encodeURIComponent(id)}.png" alt="" loading="lazy" />`;
+    return `<img class="${className}" src="${depth}asset/menu/${encodeURIComponent(id)}.webp" alt="" loading="lazy" />`;
   }
 
   function formatPrice(amount) {
@@ -545,11 +545,15 @@ window.KioskState = (function () {
       sessionStorage.removeItem(LANG_KEY);
       location.replace("../../index.html");
     }
-    // 화면을 건드리면(계속하기 버튼 포함) 타이머가 처음부터 다시 돌고 팝업도 닫힌다.
+    // 화면을 건드리면 타이머가 처음부터 다시 돈다. 팝업은 여기서 닫지 않는다 — 누르는 순간(pointerdown)
+    // 닫아버리면 이어지는 클릭이 팝업 뒤의 버튼에 떨어져 그 버튼까지 눌린다. 팝업은 클릭이 끝난 뒤
+    // (계속하기 또는 팝업 바깥 어두운 영역) 닫는다.
+    warnModal.addEventListener("click", (e) => {
+      if (e.target === warnModal || e.target.id === "idle-continue") warnModal.hidden = true;
+    });
     function reset() {
       clearTimeout(timer);
       clearTimeout(warnTimer);
-      warnModal.hidden = true;
       warnTimer = setTimeout(() => {
         warnModal.hidden = false;
       }, IDLE_MS - IDLE_WARN_BEFORE_MS);

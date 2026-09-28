@@ -384,6 +384,10 @@ body.solo-screen {
 }
 
 .review-qty__btn {
+  /* 버튼 폭보다 좌우 padding 이 커서 내용 영역이 0이 된다 — 아이콘은 flex 로 버튼 정가운데에 둔다. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 clamp(25.6px, 6vw, 44.8px);
   background: var(--color-dark);
   color: var(--color-white);
@@ -404,7 +408,7 @@ body.solo-screen {
   color: #1a1a1a;
   width: 100%;
   padding-block: 17px;
-  border: 4px solid #D4CEB3;
+  border: 4px solid #d5d4d4;
 }
 
 .review-sub-title{
